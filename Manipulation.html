@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#211b17">
-<title>The Manipulation — A Field Manual</title>
+<title>The Playbook — A Field Manual</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@ body.dark{--paper:#201b17;--paper2:#302720;--paper3:#42362b;--cream:#29221c;--in
 <body>
 <div class="grain"></div>
 <header class="topbar">
-  <a class="brand" href="./index.html"><span class="brand-mark">P.</span><span class="brand-name">The Manipulation</span></a>
+  <a class="brand" href="#"><span class="brand-mark">P.</span><span class="brand-name">The Playbook</span></a>
   <div class="top-meta"><span>A field manual in three parts</span><span>149 entries · 32 pages</span><button class="icon-btn" id="themeToggle" aria-label="Toggle theme">◐</button></div>
 </header>
 <div class="shell">
@@ -60,7 +60,7 @@ body.dark{--paper:#201b17;--paper2:#302720;--paper3:#42362b;--cream:#29221c;--in
 <section class="hero">
   <div class="hero-kicker">A field manual · three parts</div>
   <h1>The art of<br><em>reading</em><br>the room.</h1>
-  <p class="hero-copy">An editorial edition of <i>The Manipulation</i> — 149 techniques arranged across influence, attraction, and social presence. Explore the ideas, inspect the mechanics, and keep your own judgement switched on.</p>
+  <p class="hero-copy">An editorial edition of <i>The Playbook</i> — 149 techniques arranged across influence, attraction, and social presence. Explore the ideas, inspect the mechanics, and keep your own judgement switched on.</p>
   <div class="hero-bottom">
     <div class="hero-stats"><div class="stat"><strong>149</strong><span>Techniques</span></div><div class="stat"><strong>03</strong><span>Parts</span></div><div class="stat"><strong>32</strong><span>Original pages</span></div></div>
     <div class="hero-stamp">THE<br>FIELD<br>MANUAL<br>✳ 2026</div>
@@ -85,7 +85,7 @@ body.dark{--paper:#201b17;--paper2:#302720;--paper3:#42362b;--cream:#29221c;--in
     <div class="page-view"><pre id="pageText"></pre></div>
   </section>
 </div>
-<footer class="footer"><span>The Manipulation · Digital edition</span><span>149 techniques / Three parts / One through-line</span><span>Single-file experience</span></footer>
+<footer class="footer"><span>The Playbook · Digital edition</span><span>149 techniques / Three parts / One through-line</span><span>Single-file experience</span></footer>
 </main>
 </div>
 <div class="overlay" id="detailOverlay"><article class="detail-panel" id="detailPanel"><button class="icon-btn detail-close" id="closeDetail" aria-label="Close">×</button><div id="detailContent"></div></article></div>
@@ -132,9 +132,12 @@ if(window.anime){anime.timeline({easing:'easeOutExpo'}).add({targets:'.hero-kick
 .hero-close{position:absolute;top:20px;right:22px;z-index:4;width:40px;height:40px;border:1px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(255,255,255,.10);color:var(--paper);font-size:27px;line-height:1;display:grid;place-items:center;cursor:pointer}
 .hero-close:hover{background:var(--gold);color:var(--ink)}
 .hero.is-dismissed{display:none!important}
-.notice.is-dismissed{display:none!important}
 .mobile-bottom-nav{display:none}
+/* Detail panels remain independently scrollable and leave room for the dock. */
+.detail-panel{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-gutter:stable}
 @media(max-width:620px){
+  .overlay{align-items:stretch}
+  .detail-panel{height:100dvh;max-height:100dvh;padding-bottom:calc(126px + env(safe-area-inset-bottom) + 24px)}
   .mobile-bottom-nav{position:fixed;left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));z-index:1000;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;padding:7px 4px;background:rgba(36,29,24,.97);border:1px solid rgba(255,255,255,.16);border-radius:17px;box-shadow:0 8px 30px rgba(0,0,0,.28);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
   .mobile-nav-item{min-width:0;min-height:48px;padding:5px 1px;border:0;border-radius:11px;background:transparent;color:#d0c3b2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:9px var(--mono);white-space:nowrap;cursor:pointer}
   .mobile-nav-item .mobile-nav-icon{font:18px/1 var(--sans)}
@@ -151,13 +154,12 @@ body.dark .mobile-bottom-nav{background:rgba(20,17,14,.98)}
   function safeGet(key){try{return localStorage.getItem(key)}catch(e){return null}}
   function safeSet(key,value){try{localStorage.setItem(key,value)}catch(e){}}
   const hero=document.querySelector('.hero');
-  const warning=document.querySelector('.notice');
   if(hero){
     const close=document.createElement('button');
     close.type='button';close.className='hero-close';close.setAttribute('aria-label','Hide banner');close.title='Hide banner';close.textContent='×';
     hero.appendChild(close);
-    if(safeGet('pb_hide_hero')==='1')hero.classList.add('is-dismissed');if(safeGet('pb_hide_hero')==='1')warning.classList.add('is-dismissed');
-    close.addEventListener('click',function(){hero.classList.add('is-dismissed');warning.classList.add('is-dismissed');safeSet('pb_hide_hero','1')});
+    if(safeGet('pb_hide_hero')==='1')hero.classList.add('is-dismissed');
+    close.addEventListener('click',function(){hero.classList.add('is-dismissed');safeSet('pb_hide_hero','1')});
   }
   const nav=document.createElement('nav');
   nav.className='mobile-bottom-nav';nav.setAttribute('aria-label','Mobile navigation');
@@ -169,7 +171,12 @@ body.dark .mobile-bottom-nav{background:rgba(20,17,14,.98)}
     const button=document.createElement('button');button.type='button';button.className='mobile-nav-item'+(index===0?' active':'');button.dataset.target=item[2];
     const icon=document.createElement('span');icon.className='mobile-nav-icon';icon.textContent=item[0];
     const label=document.createElement('span');label.textContent=item[1];button.append(icon,label);
-    button.addEventListener('click',function(){const target=document.querySelector(button.dataset.target);if(target)target.click();sync()});
+    button.addEventListener('click',function(){
+      if(typeof window.closeDetail==='function')window.closeDetail();
+      const target=document.querySelector(button.dataset.target);
+      if(target)target.click();
+      sync();
+    });
     nav.appendChild(button);
   });
   document.body.appendChild(nav);
@@ -181,7 +188,13 @@ body.dark .mobile-bottom-nav{background:rgba(20,17,14,.98)}
   }
   const sidebar=document.querySelector('.sidebar');
   if(sidebar&&window.MutationObserver){new MutationObserver(sync).observe(sidebar,{subtree:true,attributes:true,attributeFilter:['class']});}
-  document.addEventListener('click',function(event){if(event.target.closest('.nav-link'))setTimeout(sync,0)});
+  /* Any top/sidebar/bottom navigation action dismisses the open entry first. */
+  document.addEventListener('click',function(event){
+    if(event.target.closest('.topbar button, .topbar a, .sidebar .nav-link, .mobile-bottom-nav button')){
+      if(typeof window.closeDetail==='function')window.closeDetail();
+    }
+    if(event.target.closest('.nav-link'))setTimeout(sync,0);
+  },true);
   sync();
 })();
 </script>
