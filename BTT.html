@@ -1,0 +1,881 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICSE 2027 — Examination Planner</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --paper:#f3eadb;
+    --ink:#241d18;
+    --rust:#a65035;
+    --gold:#c59a5b;
+    --muted:#86786a;
+    --line:rgba(54,40,29,.2);
+    --soft:rgba(166,80,53,.07);
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'DM Sans',sans-serif;
+    --mono:'DM Mono',monospace;
+}
+
+* { box-sizing:border-box; }
+
+body {
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    overflow-x:hidden;
+    transition:background .3s,color .3s;
+}
+
+body.dark {
+    --paper:#211b17;
+    --ink:#f3eadb;
+    --rust:#d17b5c;
+    --gold:#c59a5b;
+    --muted:#ad9c88;
+    --line:rgba(237,222,202,.2);
+    --soft:rgba(209,123,92,.08);
+}
+
+/* NAVBAR */
+
+.navbar {
+    min-height:70px;
+    padding:12px 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--line);
+    gap:15px;
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:var(--ink);
+}
+
+.brand-mark {
+    width:34px;
+    height:34px;
+    background:var(--ink);
+    color:var(--paper);
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    font-family:var(--serif);
+    font-size:20px;
+}
+
+.brand-name {
+    font:600 12px var(--mono);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+}
+
+.top-meta {
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.theme-toggle {
+    width:38px;
+    height:38px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:transparent;
+    color:var(--ink);
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* HEADER */
+
+.page-header {
+    text-align:center;
+    padding:55px 20px 30px;
+}
+
+.eyebrow {
+    color:var(--rust);
+    font:11px var(--mono);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+}
+
+.page-header h1 {
+    font:500 clamp(36px,6vw,65px)/1.1 var(--serif);
+    margin:15px 0;
+    letter-spacing:-.04em;
+}
+
+.page-header p {
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* NAVIGATION TABS */
+
+.section-nav {
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    padding:15px 20px 35px;
+    flex-wrap:wrap;
+}
+
+.tab {
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--muted);
+    padding:12px 25px;
+    border-radius:30px;
+    font:11px var(--mono);
+    letter-spacing:.08em;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.tab.active {
+    background:var(--ink);
+    color:var(--paper);
+    border-color:var(--ink);
+}
+
+.tab:hover {
+    border-color:var(--rust);
+    color:var(--rust);
+}
+
+.tab.active:hover {
+    color:var(--paper);
+}
+
+/* CONTENT */
+
+.container {
+    width:min(950px,90%);
+    margin:0 auto 80px;
+}
+
+.section {
+    display:none;
+    animation:fadeIn .4s ease;
+}
+
+.section.active {
+    display:block;
+}
+
+@keyframes fadeIn {
+    from {opacity:0;transform:translateY(10px)}
+    to {opacity:1;transform:translateY(0)}
+}
+
+.section-heading {
+    border-bottom:1px solid var(--line);
+    padding-bottom:18px;
+    margin-bottom:25px;
+}
+
+.section-heading h2 {
+    font:500 30px var(--serif);
+    margin:0 0 8px;
+}
+
+.section-heading p {
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+}
+
+/* PROGRESS */
+
+.progress-wrap {
+    margin:20px 0 30px;
+}
+
+.progress-info {
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font:10px var(--mono);
+    margin-bottom:9px;
+}
+
+.progress-track {
+    height:3px;
+    background:var(--line);
+    overflow:hidden;
+}
+
+.progress-fill {
+    height:100%;
+    width:0;
+    background:var(--rust);
+    transition:width .3s;
+}
+
+/* TIMETABLE */
+
+.exam-list {
+    display:grid;
+    gap:13px;
+}
+
+.exam {
+    display:grid;
+    grid-template-columns:105px 1fr 42px;
+    align-items:center;
+    gap:18px;
+    padding:20px;
+    border:1px solid var(--line);
+    background:var(--soft);
+    transition:.25s;
+}
+
+.exam:hover {
+    border-color:var(--rust);
+    transform:translateY(-2px);
+}
+
+.exam-date {
+    text-align:center;
+    border-right:1px solid var(--line);
+    padding-right:15px;
+}
+
+.exam-date strong {
+    display:block;
+    font:500 25px var(--serif);
+    color:var(--rust);
+}
+
+.exam-date span {
+    font:10px var(--mono);
+    color:var(--muted);
+    text-transform:uppercase;
+}
+
+.exam-info h3 {
+    margin:0 0 6px;
+    font:500 20px var(--serif);
+}
+
+.exam-info p {
+    margin:0;
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.6;
+}
+
+.exam-status {
+    width:29px;
+    height:29px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:15px;
+}
+
+.exam.done .exam-status {
+    background:var(--rust);
+    border-color:var(--rust);
+    color:white;
+}
+
+.exam.done {
+    opacity:.65;
+}
+
+/* INSTRUCTIONS */
+
+.instruction-group {
+    margin-bottom:32px;
+}
+
+.instruction-group h3 {
+    font:500 22px var(--serif);
+    color:var(--rust);
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line);
+}
+
+.instruction-list {
+    display:grid;
+    gap:0;
+}
+
+.instruction {
+    display:flex;
+    align-items:flex-start;
+    gap:15px;
+    padding:15px 5px;
+    border-bottom:1px solid var(--line);
+    cursor:pointer;
+}
+
+.instruction input {
+    appearance:none;
+    flex-shrink:0;
+    width:19px;
+    height:19px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+    margin:2px 0 0;
+    cursor:pointer;
+    position:relative;
+}
+
+.instruction input:checked {
+    background:var(--rust);
+    border-color:var(--rust);
+}
+
+.instruction input:checked::after {
+    content:"✓";
+    position:absolute;
+    color:white;
+    font-size:13px;
+    left:3px;
+    top:0;
+}
+
+.instruction span {
+    font-size:13px;
+    line-height:1.7;
+}
+
+.instruction input:checked + span {
+    text-decoration:line-through;
+    color:var(--muted);
+}
+
+/* NOTICE */
+
+.notice {
+    border-left:2px solid var(--rust);
+    padding:14px 18px;
+    background:var(--soft);
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.8;
+    margin:25px 0;
+}
+
+footer {
+    text-align:center;
+    padding:25px;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font:10px var(--mono);
+    letter-spacing:.12em;
+}
+
+@media(max-width:600px) {
+    .navbar {padding:12px 4%}
+    .brand-name {font-size:10px}
+    .top-meta {gap:8px}
+    .page-header {padding-top:40px}
+    .container {width:92%}
+    .exam {
+        grid-template-columns:75px 1fr 30px;
+        gap:10px;
+        padding:14px 10px;
+    }
+    .exam-date strong {font-size:21px}
+    .exam-info h3 {font-size:17px}
+    .exam-info p {font-size:11px}
+    .tab {padding:11px 17px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="./index.html">
+        <span class="brand-mark">P.</span>
+        <span class="brand-name">ICSE 2027</span>
+    </a>
+
+    <div class="top-meta">
+        <button class="theme-toggle" id="themeToggle"
+                aria-label="Toggle dark mode">☾</button>
+    </div>
+
+</header>
+
+<header class="page-header">
+    <div class="eyebrow">Class X · Examination Year 2027</div>
+    <h1>Examination Planner</h1>
+    <p>Your timetable, preparation and examination instructions.</p>
+</header>
+
+<nav class="section-nav">
+    <button class="tab active" data-target="timetable">01 — Timetable</button>
+    <button class="tab" data-target="instructions">02 — Instructions</button>
+</nav>
+
+<main class="container">
+
+    <!-- SECTION ONE: TIMETABLE -->
+
+    <section class="section active" id="timetable">
+
+        <div class="section-heading">
+            <h2>Examination Timetable</h2>
+            <p>ICSE Class X · Year 2027</p>
+        </div>
+
+        <div class="notice">
+            Examination entries are automatically marked when their scheduled
+            date arrives. The checkmark indicates that the date has arrived,
+            not that the examination has been completed.
+        </div>
+
+        <div class="progress-wrap">
+            <div class="progress-info">
+                <span>EXAMINATION DATES ARRIVED</span>
+                <span id="examProgressText">0 / 0</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="examProgress"></div>
+            </div>
+        </div>
+
+        <div class="exam-list" id="examList"></div>
+
+    </section>
+
+
+    <!-- SECTION TWO: INSTRUCTIONS -->
+
+    <section class="section" id="instructions">
+
+        <div class="section-heading">
+            <h2>Instructions to Candidates</h2>
+            <p>Important examination rules and guidelines issued by CISCE.</p>
+        </div>
+
+        <div class="progress-wrap">
+            <div class="progress-info">
+                <span>INSTRUCTIONS COMPLETED</span>
+                <span id="instructionProgressText">0 / 0</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="instructionProgress"></div>
+            </div>
+        </div>
+
+        <div id="instructionList"></div>
+
+    </section>
+
+</main>
+
+<footer>
+    CISCE · ICSE CLASS X · 2027
+</footer>
+
+<script>
+
+/* ==========================================
+   1. EXAMINATION TIMETABLE
+
+   Enter dates from page 7 of your PDF.
+   Date format: YYYY-MM-DD
+   Time should match the official timetable.
+========================================== */
+
+const exams = [
+
+    // EXAMPLE FORMAT — replace with official entries:
+    {
+      subject: "English Language",
+      paper: "Paper 1",
+      date: "2027-02-15",
+      time: "10:15 AM"
+    },
+    {
+      subject: "English Literature",
+      paper: "Paper 2",
+      date: "2027-02-18",
+      time: "10:15 AM"
+    },
+    {
+      subject: "Mathematics",
+      paper: "Paper 3",
+      date: "2027-02-22",
+      time: "10:15 AM"
+    },
+    {
+      subject: "Robotics/AI",
+      paper: "Paper 4",
+      date: "2027-02-24",
+      time: "10:15 AM"
+    },
+    {
+      subject: "History & Civics",
+      paper: "Paper 5",
+      date: "2027-02-26",
+      time: "10:15 AM"
+    },
+    {
+      subject: "Geography",
+      paper: "Paper 6",
+      date: "2027-03-01",
+      time: "10:15 AM"
+    },
+    {
+      subject: "Hindi",
+      paper: "Paper 7",
+      date: "2027-03-04",
+      time: "10:15 AM"
+    },
+    {
+      subject: "Physics",
+      paper: "Paper 8",
+      date: "2027-03-08",
+      time: "10:15 AM"
+    },
+    {
+      subject: "Chemistry",
+      paper: "Paper 9",
+      date: "2027-03-12",
+      time: "10:15 AM"
+    },
+    {
+      subject: "Biology",
+      paper: "Paper 10",
+      date: "2027-03-15",
+      time: "10:15 AM"
+    },
+
+];
+
+
+/* ==========================================
+   2. INSTRUCTIONS FROM THE PDF
+========================================== */
+
+const instructions = [
+
+{
+    title:"Dress Code",
+    items:[
+        "Candidates in regular attendance at school must wear school uniform.",
+        "Candidates not in regular attendance should preferably wear school uniform or light-coloured clothes."
+    ]
+},
+
+{
+    title:"Permitted Items",
+    items:[
+        "Admission Card issued by CISCE.",
+        "Blue/Black ink pens, pencils, scale, eraser and sharpener.",
+        "Coloured pencils, drawing instruments and art material in a transparent pouch."
+    ]
+},
+
+{
+    title:"Prohibited Items",
+    items:[
+        "Textbooks, photocopies, chits, slips of paper, memorandums, pocketbooks and notes.",
+        "AI-enabled smart glasses, AR glasses, Bluetooth-enabled spectacles and AI-assisted wearable devices.",
+        "Smart watches, mobile phones, wireless earbuds, earphones and microphones.",
+        "Fitness/health bands, cameras and other wireless or electronic communication devices.",
+        "Smart rings and wearable communication devices.",
+        "Scanner pens, reading pens, translation pens, smart pens, recording pens and camera pens.",
+        "Wallets, currency notes and handbags.",
+        "Sharp objects or instruments that may be used as weapons."
+    ]
+},
+
+{
+    title:"Before the Examination",
+    items:[
+        "Be seated in the examination hall/room thirty minutes before the scheduled start time.",
+        "Absolute punctuality is essential.",
+        "Do not leave the examination hall/room before the conclusion of the paper.",
+        "If you receive an incorrect question paper or missing stationery, inform the invigilator immediately.",
+        "An additional 15 minutes is provided for reading the question paper."
+    ]
+},
+
+{
+    title:"During the Examination",
+    items:[
+        "Do not write or scribble on the question paper or admission card.",
+        "Read all general instructions on the first page of the question paper carefully.",
+        "Break the seal of the question paper only when permitted.",
+        "Read questions carefully and answer only what is asked.",
+        "Do not waste excessive time on one or two questions.",
+        "Answer only the number of questions required by the question paper.",
+        "Write your Unique ID, Index Number and Subject clearly on the answer booklet.",
+        "Use only black or blue ink for entries in the answer booklet.",
+        "Sign in the designated space on the top sheet.",
+        "Do not scribble on the top sheet.",
+        "Write on both sides of each sheet unless the question paper says otherwise.",
+        "Leave margins on both sides of the answer booklet.",
+        "Start each separate part of a question on a new line.",
+        "Write question numbers clearly in the left-hand margin.",
+        "Do not copy the questions.",
+        "Leave a line after answering each question.",
+        "Write neatly and legibly.",
+        "Use pencils only for diagrams.",
+        "Use mathematical and drawing instruments only where required.",
+        "Continuation booklets are issued only on request after completing the pages already issued.",
+        "Do rough work on the same sheet as the answer.",
+        "Arrange answer scripts in sequential order after the examination.",
+        "Check that your UID, Index Number and Subject are written on all answer materials.",
+        "Attach all continuation booklets, used or unused, to the main answer booklet and fasten them at the top-left corner."
+    ]
+},
+
+{
+    title:"Unfair Means",
+    items:[
+        "Do not obtain or attempt to obtain unauthorised assistance.",
+        "Do not bring in, take out or substitute answer scripts.",
+        "Do not use prohibited electronic devices.",
+        "Do not copy from another candidate or help another candidate copy.",
+        "Do not approach examiners or CISCE staff to influence examination results.",
+        "Maintain orderly conduct in and around the examination hall."
+    ]
+},
+
+{
+    title:"Results and Recheck",
+    items:[
+        "ICSE 2027 results are expected in April/May 2027.",
+        "Results will be available on the official CISCE website: https://cisce.org/.",
+        "Recheck applications must be received within four days of the result declaration.",
+        "Recheck is a paid service.",
+        "Re-evaluation requests must be received within three days of the declaration of recheck results."
+    ]
+},
+
+{
+    title:"Improvement Examination",
+    items:[
+        "Eligible candidates may appear for the Improvement Examination in the same examination year.",
+        "A maximum of three subjects is permitted.",
+        "Candidates must appear for the theory paper of each selected subject.",
+        "Project marks from the main examination are carried forward, subject to the conditions stated by CISCE."
+    ]
+}
+
+];
+
+
+/* ==========================================
+   3. AUTOMATIC TIMETABLE CHECKMARKS
+========================================== */
+
+const examList = document.getElementById("examList");
+
+function renderExams() {
+    examList.innerHTML = "";
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    let arrived = 0;
+
+    exams.forEach((exam) => {
+
+        const examDate = new Date(exam.date + "T00:00:00");
+        const hasArrived = examDate <= today;
+
+        if (hasArrived) arrived++;
+
+        const dateText = examDate.toLocaleDateString("en-IN", {
+            day:"2-digit",
+            month:"short"
+        });
+
+        const dayText = examDate.toLocaleDateString("en-IN", {
+            weekday:"long"
+        });
+
+        const card = document.createElement("article");
+        card.className = "exam" + (hasArrived ? " done" : "");
+
+        card.innerHTML = `
+            <div class="exam-date">
+                <strong>${dateText}</strong>
+                <span>${dayText}</span>
+            </div>
+
+            <div class="exam-info">
+                <h3>${exam.subject}</h3>
+                <p>${exam.paper || ""}</p>
+                <p>${exam.time || "Time as per official timetable"}</p>
+            </div>
+
+            <div class="exam-status">
+                ${hasArrived ? "✓" : ""}
+            </div>
+        `;
+
+        examList.appendChild(card);
+    });
+
+    document.getElementById("examProgressText").textContent =
+        `${arrived} / ${exams.length}`;
+
+    document.getElementById("examProgress").style.width =
+        exams.length ? `${arrived / exams.length * 100}%` : "0%";
+
+    if (!exams.length) {
+        examList.innerHTML = `
+            <div class="notice">
+                Add the official examination dates in the exams variable
+                at the beginning of the JavaScript section.
+            </div>`;
+    }
+}
+
+renderExams();
+
+
+/* ==========================================
+   4. INSTRUCTION CHECKLIST
+========================================== */
+
+const instructionList = document.getElementById("instructionList");
+
+const savedChecks = JSON.parse(
+    localStorage.getItem("icseInstructionChecks") || "{}"
+);
+
+let instructionIndex = 0;
+
+instructions.forEach((group) => {
+
+    const groupDiv = document.createElement("div");
+    groupDiv.className = "instruction-group";
+
+    const heading = document.createElement("h3");
+    heading.textContent = group.title;
+
+    const list = document.createElement("div");
+    list.className = "instruction-list";
+
+    group.items.forEach((item) => {
+
+        const id = "instruction-" + instructionIndex++;
+
+        const label = document.createElement("label");
+        label.className = "instruction";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = !!savedChecks[id];
+
+        const text = document.createElement("span");
+        text.textContent = item;
+
+        checkbox.addEventListener("change", () => {
+            savedChecks[id] = checkbox.checked;
+
+            localStorage.setItem(
+                "icseInstructionChecks",
+                JSON.stringify(savedChecks)
+            );
+
+            updateInstructionProgress();
+        });
+
+        label.appendChild(checkbox);
+        label.appendChild(text);
+        list.appendChild(label);
+    });
+
+    groupDiv.appendChild(heading);
+    groupDiv.appendChild(list);
+    instructionList.appendChild(groupDiv);
+});
+
+function updateInstructionProgress() {
+    const boxes = instructionList.querySelectorAll("input");
+    const checked = [...boxes].filter(box => box.checked).length;
+
+    document.getElementById("instructionProgressText").textContent =
+        `${checked} / ${boxes.length}`;
+
+    document.getElementById("instructionProgress").style.width =
+        boxes.length ? `${checked / boxes.length * 100}%` : "0%";
+}
+
+updateInstructionProgress();
+
+
+/* ==========================================
+   5. SECTION NAVIGATION
+========================================== */
+
+document.querySelectorAll(".tab").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        document.querySelectorAll(".tab").forEach(tab =>
+            tab.classList.remove("active")
+        );
+
+        document.querySelectorAll(".section").forEach(section =>
+            section.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        document.getElementById(
+            button.dataset.target
+        ).classList.add("active");
+
+        window.scrollTo({top:0, behavior:"smooth"});
+    });
+
+});
+
+
+/* ==========================================
+   6. DARK MODE
+========================================== */
+
+const themeToggle = document.getElementById("themeToggle");
+
+if (localStorage.getItem("icseTheme") === "dark") {
+    document.body.classList.add("dark");
+    themeToggle.textContent = "☀";
+}
+
+themeToggle.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark");
+
+    const dark = document.body.classList.contains("dark");
+
+    themeToggle.textContent = dark ? "☀" : "☾";
+
+    localStorage.setItem("icseTheme", dark ? "dark" : "light");
+
+});
+
+</script>
+
+</body>
+</html>
