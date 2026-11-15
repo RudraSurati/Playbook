@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,6 +70,7 @@ body.dark {
     font-size: 19px;
     cursor: pointer;
     transition: .3s;
+    flex-shrink: 0;
 }
 
 .theme-toggle:hover {
@@ -107,10 +107,10 @@ body.dark {
 /* BUTTON GRID */
 
 .button-grid {
-    width: min(1050px, 90%);
+    width: min(1050px, 92%);
     margin: 30px auto 80px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 45px 35px;
 }
 
@@ -118,7 +118,11 @@ body.dark {
 
 .nav-link {
     position: relative;
-    min-height: 155px;
+    min-height: 160px;
+
+    /* responsive inner spacing so text never touches borders */
+    padding: clamp(24px, 4vw, 44px) clamp(20px, 4vw, 40px);
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,7 +130,11 @@ body.dark {
 
     color: var(--ink);
     text-decoration: none;
-    font: 500 clamp(20px, 2.5vw, 27px) var(--serif);
+    font: 500 clamp(17px, 2.3vw, 27px) var(--serif);
+    line-height: 1.25;
+    word-break: break-word;
+    hyphens: auto;
+    overflow-wrap: anywhere;
 
     isolation: isolate;
     animation: float 8s ease-in-out infinite;
@@ -197,20 +205,74 @@ footer {
     letter-spacing: .15em;
 }
 
-/* MOBILE */
+/* ---------- RESPONSIVE ---------- */
 
+/* tablets */
+@media (max-width: 900px) {
+    .button-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 35px 25px;
+        width: 94%;
+    }
+    .nav-link {
+        min-height: 145px;
+        padding: 22px 18px;
+        font-size: clamp(16px, 2.5vw, 22px);
+    }
+}
+
+/* phones */
 @media (max-width: 600px) {
     .intro { padding-top: 48px; }
 
     .button-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 25px 12px;
-        width: 92%;
+        gap: 25px 14px;
+        width: 94%;
+        margin: 20px auto 60px;
     }
 
     .nav-link {
-        min-height: 135px;
-        font-size: 19px;
+        min-height: 130px;
+        padding: 22px 14px;
+        font-size: clamp(15px, 4vw, 19px);
+        line-height: 1.3;
+    }
+
+    /* bring borders in slightly so they don't crowd the text */
+    .nav-link::before { inset: 4px; }
+    .nav-link::after  { inset: 10px; }
+}
+
+/* small phones */
+@media (max-width: 400px) {
+    .button-grid {
+        gap: 20px 10px;
+        width: 95%;
+    }
+    .nav-link {
+        min-height: 120px;
+        padding: 20px 10px;
+        font-size: clamp(14px, 3.8vw, 17px);
+    }
+    .nav-link::before { inset: 3px; }
+    .nav-link::after  { inset: 9px; }
+    .topbar { padding: 0 4vw; height: 62px; }
+    .brand { font-size: 10px; letter-spacing: .12em; }
+    .theme-toggle { width: 38px; height: 38px; font-size: 17px; }
+}
+
+/* very narrow – go single column so text never squeezes */
+@media (max-width: 360px) {
+    .button-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        width: 90%;
+    }
+    .nav-link {
+        min-height: 110px;
+        padding: 24px 22px;
+        font-size: 18px;
     }
 }
 
