@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="theme-color" content="#f3eadb">
+
+<title>Brahmacharya — The Art of Self-Mastery</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+ --paper:#f3eadb;--paper2:#eaddc9;--ink:#241d18;--muted:#827568;
+
+ --rust:#a65035;--gold:#bd9457;--line:rgba(55,39,27,.18);
+
+ --card:rgba(255,252,245,.58);--serif:'Playfair Display',Georgia,serif;
+
+ --sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+
+ --shadow:0 12px 35px rgba(53,37,24,.08)
+
+}
+
+[data-theme=dark]{
+
+ --paper:#1c1916;--paper2:#28221d;--ink:#eee3d3;--muted:#a99a88;
+
+ --rust:#d18a6c;--gold:#c9a66f;--line:rgba(238,227,211,.16);
+
+ --card:rgba(48,40,33,.7);--shadow:0 12px 35px rgba(0,0,0,.2)
+
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);transition:.3s;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E")}
+
+button,input{font:inherit}
+
+button{color:inherit}
+
+a{color:inherit}
+
+.topbar{height:72px;padding:0 5vw;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(16px);z-index:20}
+
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+
+.brand-mark{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font:22px var(--serif)}
+
+.brand-name{font:500 11px var(--mono);letter-spacing:.17em;text-transform:uppercase}
+
+.top-meta{display:flex;align-items:center;gap:22px}
+
+.eyebrow{font:10px var(--mono);letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
+
+.theme-btn,.icon-btn{border:1px solid var(--line);background:transparent;border-radius:50px;padding:9px 14px;cursor:pointer;font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;transition:.25s}
+
+.theme-btn:hover,.icon-btn:hover{background:var(--ink);color:var(--paper)}
+
+.hero{padding:90px 8vw 65px;max-width:1400px;margin:auto;position:relative;overflow:hidden}
+
+.hero:after{content:"॥";position:absolute;right:12%;top:35px;font:190px var(--serif);color:var(--gold);opacity:.13;pointer-events:none}
+
+.hero-kicker{display:flex;align-items:center;gap:12px;color:var(--rust);font:10px var(--mono);letter-spacing:.2em;text-transform:uppercase}
+
+.hero-kicker:before{content:"";width:35px;height:1px;background:var(--rust)}
+
+h1{font:500 clamp(52px,8vw,112px)/.98 var(--serif);letter-spacing:-.055em;max-width:850px;margin:27px 0}
+
+h1 em{color:var(--rust);font-weight:400}
+
+.hero-desc{font:16px/1.8 var(--sans);color:var(--muted);max-width:520px}
+
+.hero-bottom{display:flex;align-items:center;gap:30px;margin-top:40px;flex-wrap:wrap}
+
+.primary-btn{background:var(--ink);color:var(--paper);padding:15px 23px;border:1px solid var(--ink);text-decoration:none;font:10px var(--mono);letter-spacing:.13em;text-transform:uppercase;cursor:pointer;transition:.25s}
+
+.primary-btn:hover{background:var(--rust);border-color:var(--rust);transform:translateY(-3px)}
+
+.hero-note{font:10px var(--mono);color:var(--muted);letter-spacing:.08em}
+
+.rule{height:1px;background:var(--line);margin:0 5vw}
+
+.quote-band{padding:38px 8vw;text-align:center;background:var(--paper2);border-block:1px solid var(--line)}
+
+.quote-band blockquote{font:italic clamp(19px,3vw,29px)/1.5 var(--serif);max-width:780px;margin:0 auto 13px}
+
+.quote-band small{font:10px var(--mono);letter-spacing:.15em;color:var(--rust);text-transform:uppercase}
+
+.layout{max-width:1400px;margin:auto;padding:65px 5vw 110px;display:grid;grid-template-columns:245px minmax(0,1fr);gap:55px}
+
+.sidebar{position:sticky;top:100px;align-self:start}
+
+.side-label{font:10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+
+.nav-list{display:grid;gap:5px}
+
+.nav-item{width:100%;text-align:left;background:transparent;border:0;border-left:1px solid var(--line);padding:11px 14px;color:var(--muted);font:12px var(--sans);cursor:pointer;transition:.2s}
+
+.nav-item:hover,.nav-item.active{border-left:2px solid var(--rust);color:var(--ink);background:var(--card)}
+
+.sidebar-progress{margin-top:35px;padding:17px;border:1px solid var(--line);background:var(--card)}
+
+.progress-top{display:flex;justify-content:space-between;font:10px var(--mono);color:var(--muted)}
+
+.progress-track{height:3px;background:var(--line);margin-top:12px}
+
+.progress-fill{height:100%;width:0;background:var(--rust);transition:.3s}
+
+.content{min-width:0}
+
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}
+
+.section-index{font:10px var(--mono);letter-spacing:.16em;color:var(--rust);text-transform:uppercase}
+
+h2{font:500 clamp(31px,4vw,48px)/1.1 var(--serif);letter-spacing:-.035em;margin:9px 0}
+
+.section-sub{color:var(--muted);font-size:13px;line-height:1.7;max-width:560px}
+
+.search-wrap{position:relative;margin:30px 0}
+
+.search-wrap input{width:100%;background:var(--card);border:1px solid var(--line);padding:16px 18px 16px 44px;color:var(--ink);outline:none;font:12px var(--mono)}
+
+.search-wrap input:focus{border-color:var(--rust)}
+
+.search-icon{position:absolute;left:17px;top:14px;color:var(--muted)}
+
+.topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+
+.topic-card{background:var(--card);border:1px solid var(--line);padding:23px 22px;min-height:155px;text-align:left;cursor:pointer;position:relative;overflow:hidden;transition:transform .3s,border .3s,background .3s}
+
+.topic-card:after{content:"↗";position:absolute;right:20px;bottom:17px;color:var(--gold);font-size:18px}
+
+.topic-card:hover{transform:translateY(-4px);border-color:var(--gold);background:var(--paper2)}
+
+.topic-number{font:10px var(--mono);color:var(--rust);letter-spacing:.15em}
+
+.topic-card h3{font:500 22px var(--serif);margin:16px 0 8px}
+
+.topic-card p{font-size:11px;line-height:1.6;color:var(--muted);max-width:90%}
+
+.topic-card.done:before{content:"✓";position:absolute;right:18px;top:17px;color:var(--rust);font-size:13px}
+
+.reader{display:none;border:1px solid var(--line);background:var(--card);padding:clamp(22px,4vw,48px);margin-top:25px;box-shadow:var(--shadow);animation:rise .35s ease}
+
+.reader.open{display:block}
+
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.reader-top{display:flex;justify-content:space-between;align-items:center;gap:15px}
+
+.reader h2{font-size:clamp(34px,5vw,56px);margin:20px 0}
+
+.reader-body{font:14px/1.95 var(--sans);color:var(--muted)}
+
+.reader-body h3{font:500 23px var(--serif);color:var(--ink);margin:28px 0 9px}
+
+.reader-body h4{font:500 16px var(--serif);color:var(--rust);margin:23px 0 7px}
+
+.reader-body p{margin:12px 0}
+
+.reader-body ul{padding-left:22px}
+
+.reader-body li{padding:4px 0}
+
+.reader-body strong{color:var(--ink);font-weight:600}
+
+.reader-body blockquote{border-left:2px solid var(--gold);margin:22px 0;padding:12px 20px;color:var(--ink);font:italic 19px/1.6 var(--serif)}
+
+.reader-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
+
+.secondary-btn{border:1px solid var(--line);background:transparent;padding:12px 16px;cursor:pointer;font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+
+.secondary-btn:hover{border-color:var(--rust);color:var(--rust)}
+
+.done-btn{background:var(--rust);border-color:var(--rust);color:#fff}
+
+.view{display:none}
+
+.view.active{display:block;animation:rise .3s ease}
+
+.checklist{display:grid;gap:9px;margin-top:25px}
+
+.check-row{display:flex;align-items:flex-start;gap:14px;background:var(--card);border:1px solid var(--line);padding:15px 17px;cursor:pointer;transition:.2s}
+
+.check-row:hover{border-color:var(--gold)}
+
+.check-row input{accent-color:var(--rust);margin-top:3px;width:16px;height:16px}
+
+.check-row span{font-size:13px;line-height:1.6}
+
+.check-row input:checked+span{text-decoration:line-through;color:var(--muted)}
+
+.check-time{font:10px var(--mono);color:var(--rust);display:block;margin-bottom:4px}
+
+.check-tools{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0}
+
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:25px 0}
+
+.stat{padding:20px;background:var(--card);border:1px solid var(--line)}
+
+.stat strong{font:35px var(--serif);display:block;color:var(--rust)}
+
+.stat span{font:10px var(--mono);letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+
+.week-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:25px}
+
+.week-card{padding:22px;border:1px solid var(--line);background:var(--card)}
+
+.week-card b{font:19px var(--serif);font-weight:500}
+
+.week-card p{font-size:12px;line-height:1.7;color:var(--muted)}
+
+.scripture{padding:23px;border-bottom:1px solid var(--line)}
+
+.scripture blockquote{font:italic 21px/1.6 var(--serif);margin:0 0 12px}
+
+.scripture p{font-size:12px;color:var(--muted);line-height:1.7}
+
+.scripture small{font:10px var(--mono);color:var(--rust);letter-spacing:.12em;text-transform:uppercase}
+
+.footer{padding:55px 8vw 90px;border-top:1px solid var(--line);text-align:center}
+
+.footer-mark{font:42px var(--serif);color:var(--gold)}
+
+.footer p{font:10px var(--mono);color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+
+.mobile-nav{display:none}
+
+.empty{padding:35px;text-align:center;color:var(--muted);font:12px var(--mono)}
+
+@media(max-width:850px){
+
+ .layout{grid-template-columns:1fr;gap:30px;padding:40px 5vw 120px}
+
+ .sidebar{position:static}
+
+ .nav-list{display:flex;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+
+ .nav-item{white-space:nowrap;border-left:0;border-bottom:1px solid var(--line);width:auto}
+
+ .nav-item.active{border-left:0;border-bottom:2px solid var(--rust)}
+
+ .sidebar-progress{display:none}
+
+ .hero{padding:65px 6vw 55px}
+
+ .hero:after{right:3%;font-size:130px}
+
+ .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:30;background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));justify-content:space-around}
+
+ .mobile-nav button{border:0;background:none;color:var(--muted);font:9px var(--mono);padding:8px 5px;display:grid;gap:4px;justify-items:center}
+
+ .mobile-nav button.active{color:var(--rust)}
+
+ .mobile-nav span{font-size:17px}
+
+ .footer{padding-bottom:110px}
+
+}
+
+@media(max-width:560px){
+
+ .topbar{height:62px;padding:0 5vw}
+
+ .top-meta .eyebrow{display:none}
+
+ .hero{padding-top:55px}
+
+ h1{font-size:57px}
+
+ .hero-desc{font-size:14px}
+
+ .topic-grid,.week-grid{grid-template-columns:1fr}
+
+ .topic-card{min-height:130px}
+
+ .section-head{align-items:start;flex-direction:column}
+
+ .stat-grid{gap:7px}
+
+ .stat{padding:13px}
+
+ .stat strong{font-size:28px}
+
+ .reader{padding:22px 18px}
+
+}
+
+
+
+
+
+/* =================================
+
+   RESPONSIVE DESIGN — ALL SCREENS
+
+================================= */
+
+
+
+html {
+
+  scroll-behavior: smooth;
+
+  scroll-padding-top: 85px;
+
+}
+
+
+
+body {
+
+  overflow-x: hidden;
+
+}
+
+
+
+img, video, iframe {
+
+  max-width: 100%;
+
+}
+
+
+
+.main {
+
+  width: 100%;
+
+  min-width: 0;
+
+}
+
+
+
+.content-card {
+
+  width: 100%;
+
+  min-width: 0;
+
+  overflow-wrap: anywhere;
+
+}
+
+
+
+.content-card pre,
+
+.content-card table {
+
+  max-width: 100%;
+
+  overflow-x: auto;
+
+}
+
+
+
+.content-card pre {
+
+  white-space: pre-wrap;
+
+}
+
+
+
+.content-card table {
+
+  display: block;
+
+}
+
+
+
+.content-card h1,
+
+.content-card h2,
+
+.content-card h3 {
+
+  overflow-wrap: anywhere;
+
+}
+
+
+
+button, select, input, textarea {
+
+  max-width: 100%;
+
+}
+
+
+
+/* Large desktops */
+
+@media (min-width: 1500px) {
+
+  .layout {
+
+    grid-template-columns: 300px minmax(0, 1fr);
+
+  }
+
+
+
+  .main {
+
+    padding: 55px 75px 100px;
+
+  }
+
+
+
+  .hero {
+
+    min-height: 350px;
+
+  }
+
+
+
+  .content-card {
+
+    padding: 55px;
+
+  }
+
+}
+
+
+
+/* Laptops and tablets */
+
+@media (max-width: 1100px) {
+
+  .layout {
+
+    grid-template-columns: 235px minmax(0, 1fr);
+
+  }
+
+
+
+  .sidebar {
+
+    padding: 20px 12px;
+
+  }
+
+
+
+  .main {
+
+    padding: 25px 22px 70px;
+
+  }
+
+
+
+  .hero {
+
+    padding: 35px;
+
+  }
+
+
+
+  .content-card {
+
+    padding: 28px;
+
+  }
+
+}
+
+
+
+/* Tablet and mobile navigation */
+
+@media (max-width: 850px) {
+
+  .layout {
+
+    display: block;
+
+  }
+
+
+
+  .sidebar {
+
+    position: fixed;
+
+    top: 66px;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: min(310px, 85vw);
+
+    height: auto;
+
+    overflow-y: auto;
+
+    z-index: 40;
+
+    background: var(--bg);
+
+    transform: translateX(-110%);
+
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+
+    box-shadow: 15px 0 45px #0002;
+
+  }
+
+
+
+  .sidebar.open {
+
+    transform: translateX(0);
+
+  }
+
+
+
+  .main {
+
+    width: 100%;
+
+    padding: 24px 20px 70px;
+
+  }
+
+
+
+  .mobile-menu {
+
+    display: inline-block;
+
+  }
+
+
+
+  .hero {
+
+    min-height: 290px;
+
+  }
+
+
+
+  .reader-head {
+
+    flex-wrap: wrap;
+
+  }
+
+
+
+  .toolbar {
+
+    gap: 7px;
+
+  }
+
+}
+
+
+
+/* Phones */
+
+@media (max-width: 600px) {
+
+  .topbar {
+
+    height: 60px;
+
+    padding: 0 12px;
+
+    gap: 8px;
+
+  }
+
+
+
+  .brand {
+
+    font-size: 14px;
+
+    gap: 7px;
+
+  }
+
+
+
+  .brand-mark {
+
+    width: 30px;
+
+    height: 30px;
+
+    flex-shrink: 0;
+
+  }
+
+
+
+  .top-actions {
+
+    gap: 5px;
+
+  }
+
+
+
+  .iconbtn {
+
+    padding: 8px 10px;
+
+    border-radius: 10px;
+
+  }
+
+
+
+  .topbar .iconbtn {
+
+    font-size: 13px;
+
+  }
+
+
+
+  .main {
+
+    padding: 15px 12px 55px;
+
+  }
+
+
+
+  .hero {
+
+    padding: 27px 22px;
+
+    min-height: 260px;
+
+    border-radius: 19px;
+
+  }
+
+
+
+  .hero h1 {
+
+    font-size: clamp(39px, 12vw, 55px);
+
+    margin: 14px 0;
+
+  }
+
+
+
+  .hero p {
+
+    font-size: 13px;
+
+  }
+
+
+
+  .hero:after {
+
+    font-size: 140px;
+
+    right: -10px;
+
+    top: 35px;
+
+  }
+
+
+
+  .searchrow {
+
+    margin: 17px 0;
+
+  }
+
+
+
+  .searchbox input {
+
+    padding: 13px 12px 13px 38px;
+
+    font-size: 13px;
+
+  }
+
+
+
+  .toolbar {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+  }
+
+
+
+  .toolbar select {
+
+    flex: 1 1 100%;
+
+    min-width: 0;
+
+  }
+
+
+
+  .toolbar button {
+
+    flex: 1;
+
+  }
+
+
+
+  .reader-head {
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    margin-bottom: 14px;
+
+  }
+
+
+
+  .reader-controls {
+
+    width: 100%;
+
+  }
+
+
+
+  .reader-controls button {
+
+    flex: 1;
+
+    padding: 9px 5px;
+
+    font-size: 12px;
+
+  }
+
+
+
+  .content-card {
+
+    padding: 23px 17px;
+
+    border-radius: 16px;
+
+    min-height: 300px;
+
+  }
+
+
+
+  .content-card h1 {
+
+    font-size: 29px;
+
+  }
+
+
+
+  .content-card h2 {
+
+    font-size: 24px;
+
+    margin-top: 29px;
+
+  }
+
+
+
+  .content-card h3 {
+
+    font-size: 19px;
+
+  }
+
+
+
+  .content-card p,
+
+  .content-card li {
+
+    font-size: var(--reading);
+
+    line-height: 1.8;
+
+  }
+
+
+
+  .dashboard {
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 9px;
+
+  }
+
+
+
+  .stat {
+
+    padding: 14px;
+
+  }
+
+
+
+  .stat b {
+
+    font-size: 23px;
+
+  }
+
+
+
+  .todo {
+
+    padding: 12px;
+
+  }
+
+
+
+  .todo label {
+
+    font-size: 13px;
+
+  }
+
+
+
+  .notearea {
+
+    min-height: 125px;
+
+  }
+
+
+
+  .section-title {
+
+    font-size: 25px;
+
+  }
+
+}
+
+
+
+/* Small phones */
+
+@media (max-width: 380px) {
+
+  .brand {
+
+    font-size: 12px;
+
+  }
+
+
+
+  .topbar {
+
+    padding: 0 8px;
+
+  }
+
+
+
+  .iconbtn {
+
+    padding: 7px 8px;
+
+  }
+
+
+
+  .hero h1 {
+
+    font-size: 38px;
+
+  }
+
+
+
+  .dashboard {
+
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+
+
+  .reader-controls {
+
+    gap: 4px;
+
+  }
+
+
+
+  .reader-controls button {
+
+    font-size: 11px;
+
+  }
+
+}
+
+
+
+/* Landscape phones */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+  .sidebar {
+
+    height: calc(100dvh - 60px);
+
+    overflow-y: auto;
+
+  }
+
+
+
+  .hero {
+
+    min-height: 220px;
+
+  }
+
+}
+
+
+
+/* Touch devices */
+
+@media (hover: none) {
+
+  .navitem:hover,
+
+  .softbtn:hover,
+
+  .iconbtn:hover {
+
+    transform: none;
+
+  }
+
+
+
+  button {
+
+    min-height: 38px;
+
+  }
+
+}
+
+
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+
+  *::before,
+
+  *::after {
+
+    scroll-behavior: auto !important;
+
+    animation-duration: .01ms !important;
+
+    transition-duration: .01ms !important;
+
+  }
+
+}
+
+
+
+
+/* READING MODAL, BANNER, CHECKLIST & MOTION */
+.quote-band{position:relative;transition:opacity .35s,transform .35s,max-height .45s,padding .45s;overflow:hidden}
+.quote-band.dismissed{opacity:0;transform:translateY(-12px);max-height:0;padding-block:0;border-width:0;pointer-events:none}
+.banner-close{position:absolute;right:clamp(14px,4vw,48px);top:50%;transform:translateY(-50%);width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;transition:transform .25s,background .25s,color .25s}
+.banner-close:hover{transform:translateY(-50%) rotate(90deg);background:var(--ink);color:var(--paper)}
+.reader{display:none}
+.reader.open{display:flex;position:fixed;inset:0;z-index:100;overflow-y:auto;overscroll-behavior:contain;align-items:center;justify-content:center;flex-direction:column;padding:24px;background:rgba(25,19,15,.58);backdrop-filter:blur(9px);margin:0;border:0;box-shadow:none;animation:veilIn .28s ease}
+.reader-panel{width:min(850px,100%);max-height:min(88vh,1000px);overflow:auto;position:relative;background:var(--paper);border:1px solid var(--line);box-shadow:0 30px 100px rgba(0,0,0,.25);padding:clamp(22px,4vw,48px);animation:modalIn .42s cubic-bezier(.2,.8,.2,1);transform-origin:center}
+.reader-top{position:sticky;top:-1px;z-index:2;background:var(--paper);padding:0 0 15px;border-bottom:1px solid var(--line)}
+.reader-heading{display:grid;grid-template-columns:48px minmax(0,1fr) 48px;align-items:center;gap:15px;margin:24px 0 20px}
+.reader-heading-copy{text-align:center;min-width:0}
+.reader-heading-copy h2{margin:0 0 8px}
+.reader-counter{font:10px var(--mono);letter-spacing:.13em;color:var(--muted);text-transform:uppercase}
+.reader-arrow{width:46px;height:46px;border:1px solid var(--line);border-radius:50%;background:var(--card);font-size:22px;cursor:pointer;transition:transform .25s,background .25s,color .25s,border-color .25s}
+.reader-arrow:hover:not(:disabled){transform:scale(1.08);background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.reader-arrow:disabled{opacity:.25;cursor:not-allowed}
+.reader-body{max-width:690px;margin:0 auto;animation:contentIn .3s ease}
+.reader-actions{max-width:690px;margin:30px auto 0;align-items:center}
+.reader-spacer{flex:1}
+@keyframes veilIn{from{opacity:0}to{opacity:1}}
+@keyframes modalIn{from{opacity:0;transform:translateY(28px) scale(.975)}to{opacity:1;transform:none}}
+@keyframes contentIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes softReveal{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.topic-card{animation:softReveal .55s both;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .3s}
+.topic-card:nth-child(3n+2){animation-delay:.05s}.topic-card:nth-child(3n){animation-delay:.1s}
+.topic-card:hover{box-shadow:0 16px 32px rgba(53,37,24,.1)}
+.week-card{transition:transform .3s,box-shadow .3s,border-color .3s}
+.week-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--gold)}
+.primary-btn,.secondary-btn,.theme-btn,.icon-btn{transition:transform .25s,background .25s,color .25s,border-color .25s,box-shadow .25s}
+.primary-btn:active,.secondary-btn:active,.theme-btn:active,.icon-btn:active{transform:scale(.97)}
+@keyframes taskPop{0%{transform:scale(.98)}55%{transform:scale(1.012)}100%{transform:scale(1)}}\n.check-row.just-done{animation:taskPop .38s ease}\n/* Daily checklist */
+.todo-progress-card{padding:24px 25px;margin:0 0 22px;border:1px solid var(--line);background:linear-gradient(125deg,var(--paper2),var(--card));box-shadow:var(--shadow)}
+.todo-progress-heading{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.todo-progress-heading h3{font:500 22px var(--serif);margin:7px 0 0}
+.todo-progress-heading>strong{font:500 36px var(--serif);color:var(--rust)}
+.todo-progress-track{height:7px;background:var(--line);border-radius:20px;margin:19px 0 12px;overflow:hidden}
+.todo-progress-track span{display:block;width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--rust),var(--gold));transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.todo-progress-foot{display:flex;justify-content:space-between;gap:12px;font:10px var(--mono);color:var(--muted)}
+.checklist{gap:8px}
+.todo-group{margin:20px 0 10px;display:flex;align-items:center;justify-content:space-between;color:var(--muted);font:10px var(--mono);letter-spacing:.16em;text-transform:uppercase}
+.todo-group:first-child{margin-top:0}
+.todo-group:after{content:"";height:1px;background:var(--line);flex:1;margin-left:14px}
+.todo-group-count{font-size:9px;letter-spacing:.05em;color:var(--rust);white-space:nowrap;margin-left:10px}
+.check-row{position:relative;align-items:center;gap:14px;padding:15px 17px;border-radius:3px;transition:transform .25s,border-color .25s,background .25s,opacity .25s;animation:softReveal .35s both}
+.check-row:hover{transform:translateX(4px);background:var(--paper2)}
+.check-row input{appearance:none;flex:0 0 21px;width:21px;height:21px;margin:0;border:1px solid var(--gold);border-radius:7px;background:transparent;cursor:pointer;display:grid;place-items:center;transition:all .25s}
+.check-row input:before{content:"✓";font: bold 13px var(--sans);color:#fff;transform:scale(0);transition:transform .2s}
+.check-row input:checked{background:var(--rust);border-color:var(--rust)}
+.check-row input:checked:before{transform:scale(1)}
+.check-row span{flex:1;transition:opacity .25s}
+.check-row input:checked+span{text-decoration:none;opacity:.55}
+.check-row input:checked+span:not(.check-time){text-decoration:line-through;text-decoration-color:var(--gold)}
+.check-time{font-size:9px;letter-spacing:.12em}
+.reset-btn{border-radius:30px}
+.check-row:nth-child(2n){animation-delay:.035s}
+.check-row:has(input:checked){border-color:rgba(166,80,53,.35)}
+.stat{transition:transform .25s,border-color .25s}
+.stat:hover{transform:translateY(-3px);border-color:var(--gold)}
+.mobile-nav button{transition:transform .2s,color .2s}
+.mobile-nav button:active{transform:translateY(-3px)}
+@media(max-width:650px){
+ .reader.open{padding:10px}
+ .reader-panel{max-height:94dvh;padding:20px 17px}
+ .reader-heading{grid-template-columns:38px minmax(0,1fr) 38px;gap:7px;margin:18px 0}
+ .reader-arrow{width:36px;height:36px;font-size:18px}
+ .reader-heading-copy h2{font-size:clamp(26px,8vw,38px)}
+ .reader-actions{gap:7px}
+ .reader-actions .secondary-btn{flex:1;padding:10px 8px;font-size:9px}
+ .reader-spacer{display:none}
+ .banner-close{top:12px;right:12px;transform:none}
+ .banner-close:hover{transform:rotate(90deg)}
+ .quote-band{padding:32px 52px 32px 22px}
+ .todo-progress-card{padding:19px 17px}
+ .todo-progress-heading h3{font-size:19px}
+ .todo-progress-heading>strong{font-size:30px}
+ .todo-progress-foot{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+ .topic-card,.check-row,.reader-panel{animation:none!important}
+ .todo-progress-track span{transition:none}
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<header class="topbar">
+
+ <a class="brand" href="./index.html">
+
+  <span class="brand-mark">P.</span>
+
+  <span class="brand-name">The Playbook</span>
+
+ </a>
+
+ <div class="top-meta">
+
+  <span class="eyebrow">A field guide to self-mastery</span>
+
+  <button class="theme-btn" id="themeToggle">◐ &nbsp; Dark mode</button>
+
+ </div>
+
+</header>
+
+
+
+<section class="hero" id="hero">
+
+ <div class="hero-kicker">A guide to conscious living</div>
+
+ <h1>The art of<br><em>Brahmacharya.</em></h1>
+
+ <p class="hero-desc">A practical guide to discipline, awareness, restraint and the intelligent use of one's energy. Not a life of denial, but a life lived with direction.</p>
+
+ <div class="hero-bottom">
+
+  <a class="primary-btn" href="#guide" onclick="showView('overview')">Explore the guide &nbsp; ↗</a>
+
+  <span class="hero-note">18 PAGES · 7 SECTIONS · DAILY PRACTICE</span>
+
+ </div>
+
+</section>
+
+
+
+<div class="quote-band" id="quoteBanner">
+ <button class="banner-close" type="button" aria-label="Dismiss quote banner" onclick="dismissBanner()">×</button>
+ <blockquote>“Discipline is not the restriction of life. It is the direction of life.”</blockquote>
+ <small>The principle of conscious living</small>
+</div>
+
+
+
+<main class="layout" id="guide">
+
+ <aside class="sidebar">
+
+  <div class="side-label">Your guide</div>
+
+  <nav class="nav-list">
+
+   <button class="nav-item active" data-view="overview" onclick="showView('overview')">01 &nbsp; Overview</button>
+
+   <button class="nav-item" data-view="principles" onclick="showView('principles')">02 &nbsp; Principles</button>
+
+   <button class="nav-item" data-view="routine" onclick="showView('routine')">03 &nbsp; Daily routine</button>
+
+   <button class="nav-item" data-view="checklist" onclick="showView('checklist')">04 &nbsp; Daily checklist</button>
+
+   <button class="nav-item" data-view="weekly" onclick="showView('weekly')">05 &nbsp; Weekly practice</button>
+
+   <button class="nav-item" data-view="scripture" onclick="showView('scripture')">06 &nbsp; Scriptures</button>
+
+  </nav>
+
+  <div class="sidebar-progress">
+
+   <div class="progress-top"><span>YOUR PROGRESS</span><span id="sidePercent">0%</span></div>
+
+   <div class="progress-track"><div class="progress-fill" id="sideFill"></div></div>
+
+  </div>
+
+ </aside>
+
+
+
+ <section class="content">
+
+  <div class="view active" id="overview">
+
+   <div class="section-head">
+
+    <div><div class="section-index">I — The library</div><h2>Explore the teachings.</h2>
+
+    <p class="section-sub">Move through the guide at your own pace. Open any subject to read its principles and practical applications.</p></div>
+
+   </div>
+
+   <div class="search-wrap"><span class="search-icon">⌕</span><input id="search" type="search" placeholder="Search topics, habits, principles..." oninput="filterTopics()"></div>
+
+   <div class="topic-grid" id="topicGrid"></div>
+
+   <article class="reader" id="reader" aria-modal="true" role="dialog" aria-labelledby="readerTitle">
+    <div class="reader-panel">
+
+    <div class="reader-top">
+     <span class="section-index" id="readerIndex">01 — READING</span>
+     <button class="icon-btn reader-close" aria-label="Close reading window" onclick="closeReader()">CLOSE ×</button>
+    </div>
+    <div class="reader-heading">
+     <button class="reader-arrow" id="readerPrev" aria-label="Previous reading" onclick="stepReader(-1)">←</button>
+     <div class="reader-heading-copy"><h2 id="readerTitle"></h2><span class="reader-counter" id="readerCounter"></span></div>
+     <button class="reader-arrow" id="readerNext" aria-label="Next reading" onclick="stepReader(1)">→</button>
+    </div>
+    <div class="reader-body" id="readerBody"></div>
+    <div class="reader-actions">
+     <button class="secondary-btn done-btn" id="completeBtn" onclick="toggleComplete()">Mark as completed ✓</button>
+     <span class="reader-spacer"></span>
+     <button class="secondary-btn" onclick="stepReader(-1)">← Previous</button>
+     <button class="secondary-btn" onclick="stepReader(1)">Next →</button>
+    </div>
+
+   </div>
+   </article>
+
+  </div>
+
+
+
+  <div class="view" id="principles">
+
+   <div class="section-index">II — Foundation</div><h2>The principles.</h2>
+
+   <p class="section-sub">Brahmacharya is best understood as the intelligent direction of one's energy, attention and conduct.</p>
+
+   <div class="topic-grid" id="principleGrid"></div>
+
+  </div>
+
+
+
+  <div class="view" id="routine">
+
+   <div class="section-index">III — Practice</div><h2>Build your daily rhythm.</h2>
+
+   <p class="section-sub">A routine should support study, health, reflection, relationships and meaningful work. Adapt the timing to your circumstances.</p>
+
+   <div class="week-grid">
+
+    <div class="week-card"><b>05:00 — Rise</b><p>Wake calmly. Avoid immediately reaching for your phone. Freshen up, drink water and begin the day with awareness.</p></div>
+
+    <div class="week-card"><b>05:30 — Stillness</b><p>Prayer, meditation, breathing or quiet reflection. Begin with a steady mind rather than rushing into activity.</p></div>
+
+    <div class="week-card"><b>06:00 — Movement</b><p>Yoga, walking, stretching or exercise suited to your fitness and health.</p></div>
+
+    <div class="week-card"><b>07:00 — Preparation</b><p>Bathing, clean clothing, a balanced breakfast and preparation for study or work.</p></div>
+
+    <div class="week-card"><b>08:00 — Focus</b><p>Study or work in focused sessions. Take short breaks and keep distractions away.</p></div>
+
+    <div class="week-card"><b>12:00 — Nourishment</b><p>Eat a balanced meal mindfully. Avoid overeating and return to work with a clear plan.</p></div>
+
+    <div class="week-card"><b>17:00 — Reset</b><p>Physical activity, outdoor time, hobbies or service. Make room for healthy recreation.</p></div>
+
+    <div class="week-card"><b>20:00 — Reflection</b><p>Reduce screen time, prepare for tomorrow, read something worthwhile and review the day.</p></div>
+
+    <div class="week-card"><b>21:30 — Rest</b><p>Maintain a consistent sleep schedule. Adequate sleep supports self-control, learning and well-being.</p></div>
+
+   </div>
+
+  </div>
+
+
+
+  <div class="view" id="checklist">
+
+   <div class="section-index">IV — Daily discipline</div><h2>Your daily checklist.</h2>
+
+   <p class="section-sub">Small actions, repeated consistently. Tick each practice as you complete it. Your progress is saved in this browser.</p>
+
+   <div class="stat-grid">
+
+    <div class="stat"><strong id="doneCount">0</strong><span>Completed</span></div>
+
+    <div class="stat"><strong id="totalCount">14</strong><span>Daily practices</span></div>
+
+    <div class="stat"><strong id="dayPercent">0%</strong><span>Today's progress</span></div>
+
+   </div>
+
+   <div class="check-tools"><span class="eyebrow" id="todayDate"></span><button class="secondary-btn reset-btn" onclick="resetChecks()">Reset today ↺</button></div>
+   <div class="todo-progress-card">
+    <div class="todo-progress-heading"><div><span class="section-index">YOUR DAILY RHYTHM</span><h3 id="todoMessage">A steady beginning.</h3></div><strong id="todoProgressLabel">0%</strong></div>
+    <div class="todo-progress-track"><span id="todoProgressFill"></span></div>
+    <div class="todo-progress-foot"><span id="todoRemaining">14 practices remaining</span><span>One step at a time</span></div>
+   </div>
+   <div class="checklist" id="checklistItems"></div>
+
+  </div>
+
+
+
+  <div class="view" id="weekly">
+
+   <div class="section-index">V — Consistency</div><h2>Weekly practice.</h2>
+
+   <p class="section-sub">Use these practices to review your habits and gradually strengthen your discipline.</p>
+
+   <div class="week-grid">
+
+    <div class="week-card"><b>01 — Review</b><p>Review your week honestly. Identify what helped your concentration and what distracted you.</p></div>
+
+    <div class="week-card"><b>02 — Digital fast</b><p>Choose a period to stay away from unnecessary social media, entertainment and scrolling.</p></div>
+
+    <div class="week-card"><b>03 — Study deeply</b><p>Set aside uninterrupted time for meaningful learning and focused work.</p></div>
+
+    <div class="week-card"><b>04 — Serve</b><p>Help someone without expecting a reward. Practise kindness through concrete action.</p></div>
+
+    <div class="week-card"><b>05 — Nature</b><p>Spend time outdoors. Walk, observe and allow your mind to settle.</p></div>
+
+    <div class="week-card"><b>06 — Simplify</b><p>Organise your room, study area and digital environment. Remove avoidable distractions.</p></div>
+
+    <div class="week-card"><b>07 — Reflect</b><p>Review your intentions. Set realistic goals for the coming week without harsh self-judgment.</p></div>
+
+    <div class="week-card"><b>Every week — Progress</b><p>Look for gradual improvement, not perfection. Consistency matters more than extreme rules.</p></div>
+
+   </div>
+
+  </div>
+
+
+
+  <div class="view" id="scripture">
+
+   <div class="section-index">VI — Wisdom</div><h2>Scriptural teachings.</h2>
+
+   <p class="section-sub">A few foundational passages traditionally associated with discipline, self-mastery and balanced action.</p>
+
+   <div class="scripture">
+
+    <small>Bhagavad Gita · 6.5</small>
+
+    <blockquote>उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।</blockquote>
+
+    <p>Lift yourself through your own effort; do not allow yourself to fall. The mind can be one's friend or one's enemy.</p>
+
+   </div>
+
+   <div class="scripture">
+
+    <small>Bhagavad Gita · 6.17</small>
+
+    <blockquote>युक्ताहारविहारस्य युक्तचेष्टस्य कर्मसु।</blockquote>
+
+    <p>Yoga is supported by moderation in food, recreation, effort and sleep. Balance is an important part of discipline.</p>
+
+   </div>
+
+   <div class="scripture">
+
+    <small>Yoga Sutra · 2.30</small>
+
+    <blockquote>अहिंसासत्यास्तेयब्रह्मचर्यापरिग्रहाः यमाः।</blockquote>
+
+    <p>Ahimsa, Satya, Asteya, Brahmacharya and Aparigraha are the five Yamas described by Patanjali.</p>
+
+   </div>
+
+   <div class="scripture">
+
+    <small>Yoga Sutra · 2.38</small>
+
+    <blockquote>ब्रह्मचर्यप्रतिष्ठायां वीर्यलाभः।</blockquote>
+
+    <p>When established in Brahmacharya, strength or vitality is gained. Interpretations vary across traditional commentaries.</p>
+
+   </div>
+
+   <div class="scripture">
+
+    <small>Bhagavad Gita · 6.26</small>
+
+    <blockquote>यतो यतो निश्चरति मनश्चञ्चलमस्थिरम्।</blockquote>
+
+    <p>Whenever the restless mind wanders, bring it back and direct it towards the chosen focus.</p>
+
+   </div>
+
+  </div>
+
+ </section>
+
+</main>
+
+
+
+<footer class="footer">
+
+ <div class="footer-mark">ॐ</div>
+
+ <p>Discipline · Awareness · Balance · Self-mastery</p>
+
+ <p style="margin-top:20px">A practical companion for conscious living</p>
+
+</footer>
+
+
+
+<nav class="mobile-nav">
+
+ <button class="active" data-view="overview" onclick="showView('overview')"><span>⌂</span>Explore</button>
+
+ <button data-view="principles" onclick="showView('principles')"><span>✧</span>Principles</button>
+
+ <button data-view="routine" onclick="showView('routine')"><span>◷</span>Routine</button>
+
+ <button data-view="checklist" onclick="showView('checklist')"><span>☑</span>Checklist</button>
+
+ <button data-view="scripture" onclick="showView('scripture')"><span>ॐ</span>Wisdom</button>
+
+</nav>
+
+
+
+<script>
+
+const topics=[
+
+{
+
+title:"Understanding Brahmacharya",cat:"01 — FOUNDATIONS",desc:"Meaning, purpose and the broader philosophy.",
+
+body:`<h3>What does Brahmacharya mean?</h3><p>The word Brahmacharya comes from the Sanskrit roots <strong>Brahman</strong> and <strong>Charya</strong>. It is commonly understood as conduct directed towards higher knowledge, truth or spiritual growth.</p><p>It is often associated with celibacy, but its wider meaning includes self-restraint, wise use of energy, disciplined conduct and control over one's senses.</p><h3>A practical understanding</h3><ul><li>Direct your attention towards meaningful goals.</li><li>Practise moderation instead of excess.</li><li>Develop control over impulses and habits.</li><li>Respect yourself and other people.</li><li>Balance study, health, rest and spiritual practice.</li></ul><blockquote>Brahmacharya is not simply about avoiding something. It is about choosing what deserves your energy.</blockquote>`
+
+},
+
+{
+
+title:"The Four Ashramas",cat:"01 — FOUNDATIONS",desc:"The traditional stages of human life.",
+
+body:`<h3>The four stages</h3><p>In the traditional Hindu framework, life is described through four Ashramas.</p><h4>1. Brahmacharya Ashrama</h4><p>The student stage, traditionally associated with learning, discipline, service to the teacher and development of character.</p><h4>2. Grihastha Ashrama</h4><p>The householder stage, involving family life, livelihood, responsibilities and contribution to society.</p><h4>3. Vanaprastha Ashrama</h4><p>A stage of gradual withdrawal from worldly responsibilities and increased reflection.</p><h4>4. Sannyasa Ashrama</h4><p>A stage traditionally associated with renunciation and dedication to spiritual liberation.</p><p>These are traditional ideals, not a compulsory timetable for every person's life.</p>`
+
+},
+
+{
+
+title:"The Five Yamas",cat:"02 — PRINCIPLES",desc:"Ethical foundations from Patanjali's Yoga Sutras.",
+
+body:`<h3>The Yamas</h3><p>The Yamas are ethical disciplines described in Yoga Sutra 2.30.</p><h4>Ahimsa — Non-violence</h4><p>Avoid harming others through actions, words or intentions. Practise compassion.</p><h4>Satya — Truthfulness</h4><p>Speak honestly and act with integrity.</p><h4>Asteya — Non-stealing</h4><p>Do not take what is not freely given. Respect the time and effort of others.</p><h4>Brahmacharya — Wise restraint</h4><p>Use energy, attention and relationships responsibly.</p><h4>Aparigraha — Non-possessiveness</h4><p>Avoid unnecessary accumulation and excessive attachment.</p>`
+
+},
+
+{
+
+title:"The Five Niyamas",cat:"02 — PRINCIPLES",desc:"Personal observances for inner development.",
+
+body:`<h3>The Niyamas</h3><p>Yoga Sutra 2.32 describes five personal observances.</p><h4>Shaucha — Cleanliness</h4><p>Maintain cleanliness of body, surroundings and intentions.</p><h4>Santosha — Contentment</h4><p>Practise gratitude and reduce unnecessary comparison.</p><h4>Tapas — Discipline</h4><p>Develop consistency and the willingness to do what is beneficial.</p><h4>Svadhyaya — Self-study</h4><p>Study meaningful texts and observe your own behaviour.</p><h4>Ishvara Pranidhana — Surrender</h4><p>Dedicate your actions to the Divine or to a higher purpose.</p>`
+
+},
+
+{
+
+title:"Morning Discipline",cat:"03 — DAILY LIFE",desc:"Start your day with intention and calmness.",
+
+body:`<h3>Beginning the day</h3><ul><li>Wake at a consistent time.</li><li>Keep your phone away immediately after waking.</li><li>Clean your body and surroundings.</li><li>Spend a few minutes in prayer, meditation or silence.</li><li>Move your body through walking, yoga or exercise.</li><li>Plan the most important work of the day.</li></ul><h3>Why it matters</h3><p>A consistent morning routine reduces decision fatigue and creates a sense of direction. The exact waking time should be suitable for your sleep needs and responsibilities.</p>`
+
+},
+
+{
+
+title:"Personal Hygiene",cat:"03 — DAILY LIFE",desc:"Cleanliness, grooming and healthy habits.",
+
+body:`<h3>Care for the body</h3><ul><li>Bathe regularly according to your needs and climate.</li><li>Wear clean clothes.</li><li>Maintain oral hygiene.</li><li>Keep nails and hair clean.</li><li>Maintain a clean sleeping and study area.</li><li>Wash your hands before meals and after using the toilet.</li></ul><p>Cleanliness is a practical form of self-respect. It should be healthy and sensible, not an obsession.</p>`
+
+},
+
+{
+
+title:"Prayer and Meditation",cat:"03 — DAILY LIFE",desc:"Create space for reflection and spiritual practice.",
+
+body:`<h3>Simple daily practice</h3><p>Prayer and meditation can help develop gratitude, steadiness and awareness.</p><ul><li>Choose a quiet and clean place.</li><li>Sit comfortably with a relaxed posture.</li><li>Begin with a few slow breaths.</li><li>Repeat a mantra or focus on the breath.</li><li>When distracted, gently return your attention.</li><li>Finish with gratitude or a positive intention.</li></ul><p>Start with five minutes and increase gradually if helpful.</p>`
+
+},
+
+{
+
+title:"Exercise and Physical Health",cat:"03 — DAILY LIFE",desc:"Build strength, stamina and a healthy body.",
+
+body:`<h3>Movement is essential</h3><p>Physical activity supports general health, mood, sleep and concentration.</p><ul><li>Walk regularly.</li><li>Practise age-appropriate yoga or stretching.</li><li>Include strength and cardiovascular activity suited to your ability.</li><li>Allow sufficient recovery.</li><li>Do not ignore pain or injury.</li></ul><p>Choose an exercise routine you can maintain safely and consistently.</p>`
+
+},
+
+{
+
+title:"Food and Moderation",cat:"03 — DAILY LIFE",desc:"Eat mindfully and avoid extremes.",
+
+body:`<h3>Balanced nourishment</h3><ul><li>Eat regular, balanced meals.</li><li>Include vegetables, fruits, grains, protein and healthy fats.</li><li>Drink sufficient water.</li><li>Eat mindfully and avoid habitual overeating.</li><li>Reduce excessive reliance on highly processed foods.</li><li>Respect your nutritional needs and medical advice.</li></ul><p>Traditional teachings value moderation. They should not be used to justify starvation, guilt around food or unsafe dietary restrictions.</p>`
+
+},
+
+{
+
+title:"Student Discipline",cat:"04 — SELF-MASTERY",desc:"Concentration, study and responsible use of time.",
+
+body:`<h3>Study with purpose</h3><ul><li>Set clear learning goals.</li><li>Study in focused sessions.</li><li>Keep your workspace organised.</li><li>Take short breaks.</li><li>Ask questions and revise regularly.</li><li>Respect teachers, classmates and learning resources.</li></ul><h3>Protect your attention</h3><p>Keep unnecessary notifications away during study. Use technology as a tool rather than allowing it to control your time.</p>`
+
+},
+
+{
+
+title:"Control of the Senses",cat:"04 — SELF-MASTERY",desc:"Practise awareness before reacting to impulses.",
+
+body:`<h3>Understanding self-control</h3><p>Self-control is the ability to pause, understand an impulse and choose a response that aligns with your values.</p><ul><li>Notice what triggers distraction.</li><li>Pause before acting on strong impulses.</li><li>Change your environment when necessary.</li><li>Develop healthy alternative activities.</li><li>Practise patience without suppressing normal emotions.</li></ul><p>The goal is not to fear the senses, but to relate to them with awareness and responsibility.</p>`
+
+},
+
+{
+
+title:"Digital Discipline",cat:"04 — SELF-MASTERY",desc:"Use devices intentionally instead of habitually.",
+
+body:`<h3>Manage your digital environment</h3><ul><li>Turn off unnecessary notifications.</li><li>Keep the phone away during study and meals.</li><li>Set reasonable limits for entertainment.</li><li>Avoid aimless late-night scrolling.</li><li>Unfollow accounts that repeatedly disturb your focus.</li><li>Use the internet for learning, communication and useful recreation.</li></ul><h3>When an urge to scroll appears</h3><p>Pause, identify what you are looking for and decide whether the activity serves a real purpose.</p>`
+
+},
+
+{
+
+title:"Managing Thoughts",cat:"04 — SELF-MASTERY",desc:"Observe thoughts without being controlled by them.",
+
+body:`<h3>Thoughts are not commands</h3><p>Everyone experiences distracting, unwanted or uncomfortable thoughts. Their appearance does not define your character.</p><ul><li>Notice the thought without panic.</li><li>Avoid fighting with yourself.</li><li>Return attention to a chosen activity.</li><li>Use breathing, exercise or conversation to reset.</li><li>Seek support if distress becomes persistent or overwhelming.</li></ul><p>Practice awareness and compassion rather than shame.</p>`
+
+},
+
+{
+
+title:"Healthy Relationships",cat:"05 — CONDUCT",desc:"Respect, boundaries and responsibility.",
+
+body:`<h3>Respectful conduct</h3><ul><li>Treat every person with dignity.</li><li>Respect personal boundaries and consent.</li><li>Communicate honestly.</li><li>Avoid objectifying or manipulating others.</li><li>Develop friendships based on mutual respect.</li><li>Do not use spiritual discipline as a reason to shame other people.</li></ul><p>Brahmacharya should encourage maturity, not hostility towards relationships or ordinary human feelings.</p>`
+
+},
+
+{
+
+title:"Seva — Selfless Service",cat:"05 — CONDUCT",desc:"Put values into action through service.",
+
+body:`<h3>Service in everyday life</h3><p>Seva means service performed without selfish expectation.</p><ul><li>Help family members with daily responsibilities.</li><li>Support someone who needs assistance.</li><li>Share knowledge and useful skills.</li><li>Care for public spaces and nature.</li><li>Volunteer where appropriate.</li></ul><p>Small acts of kindness can turn discipline into a contribution to society.</p>`
+
+},
+
+{
+
+title:"Common Misunderstandings",cat:"06 — CLARITY",desc:"What Brahmacharya does not require.",
+
+body:`<h3>Important distinctions</h3><ul><li>Brahmacharya is not hatred of the body.</li><li>It is not a reason to feel guilty about normal thoughts or feelings.</li><li>It does not require neglecting sleep, nutrition or health.</li><li>It does not mean disrespecting women or men.</li><li>It is not a substitute for medical or psychological support.</li><li>It should not become an excuse for judging others.</li></ul><p>Its practical purpose is disciplined, ethical and balanced living.</p>`
+
+},
+
+{
+
+title:"Qualities to Develop",cat:"06 — CLARITY",desc:"The character traits cultivated by a disciplined life.",
+
+body:`<h3>Qualities worth practising</h3><ul><li><strong>Viveka:</strong> discernment between helpful and harmful choices.</li><li><strong>Vairagya:</strong> freedom from excessive attachment.</li><li><strong>Dhriti:</strong> steadiness and perseverance.</li><li><strong>Kshama:</strong> patience and forgiveness.</li><li><strong>Shaucha:</strong> cleanliness and clarity.</li><li><strong>Karuna:</strong> compassion.</li><li><strong>Svadhyaya:</strong> self-study.</li></ul><p>These qualities develop gradually through practice, reflection and experience.</p>`
+
+},
+
+{
+
+title:"A Sustainable Commitment",cat:"07 — CONTINUITY",desc:"Make progress without perfectionism.",
+
+body:`<h3>Consistency over intensity</h3><p>Lasting discipline is built through realistic actions repeated over time.</p><ul><li>Choose a few habits to begin with.</li><li>Make goals specific and achievable.</li><li>Review your progress weekly.</li><li>Learn from setbacks instead of giving up.</li><li>Adjust routines when circumstances change.</li><li>Maintain balance between responsibility, health and rest.</li></ul><blockquote>Do not measure progress by never making a mistake. Measure it by how consciously you return to your path.</blockquote>`
+
+}
+
+];
+
+
+
+const principles=[
+
+{title:"Ahimsa",desc:"Non-violence in action, speech and thought.",body:topics[2].body},
+
+{title:"Satya",desc:"Truthfulness, honesty and integrity.",body:"<h3>Practise truth</h3><p>Speak honestly, keep promises and be truthful with yourself. Combine honesty with kindness and good judgment.</p>"},
+
+{title:"Asteya",desc:"Respect what belongs to others.",body:"<h3>Practise non-stealing</h3><p>Respect possessions, time, ideas and effort. Do not take credit for work that is not yours.</p>"},
+
+{title:"Brahmacharya",desc:"Wise restraint and direction of energy.",body:topics[0].body},
+
+{title:"Aparigraha",desc:"Non-possessiveness and moderation.",body:"<h3>Practise simplicity</h3><p>Reduce unnecessary accumulation, comparison and attachment. Appreciate what you have.</p>"},
+
+{title:"Shaucha",desc:"Cleanliness of body, mind and environment.",body:topics[5].body},
+
+{title:"Santosha",desc:"Contentment and gratitude.",body:"<h3>Practise contentment</h3><p>Appreciate what is present while continuing to work towards meaningful goals.</p>"},
+
+{title:"Tapas",desc:"Consistency, effort and discipline.",body:"<h3>Practise discipline</h3><p>Build the capacity to do beneficial things even when motivation is low. Avoid extreme or harmful practices.</p>"},
+
+{title:"Svadhyaya",desc:"Study, reflection and self-understanding.",body:"<h3>Practise self-study</h3><p>Read meaningful texts, examine your habits and reflect on your decisions.</p>"},
+
+{title:"Ishvara Pranidhana",desc:"Dedication to a higher purpose.",body:"<h3>Practise dedication</h3><p>Offer your actions to the Divine or to a purpose greater than personal reward.</p>"}
+
+];
+
+
+
+const daily=[
+
+["On waking","Rise at a consistent time without immediately checking your phone."],
+
+["Morning hygiene","Bathe or freshen up and wear clean clothes."],
+
+["Prayer or meditation","Spend a few minutes in prayer, mantra or quiet reflection."],
+
+["Physical movement","Walk, stretch, practise yoga or exercise safely."],
+
+["Balanced breakfast","Eat a nourishing meal and hydrate."],
+
+["Focused study or work","Complete at least one focused session without distractions."],
+
+["Mindful meals","Eat without unnecessary screen use."],
+
+["Digital boundaries","Avoid aimless scrolling and unnecessary notifications."],
+
+["Respectful conduct","Speak honestly and treat others with dignity."],
+
+["Self-control","Pause before acting on distracting impulses."],
+
+["Meaningful activity","Read, learn, create or practise a useful skill."],
+
+["Service","Help someone or complete a responsibility willingly."],
+
+["Evening reflection","Review the day without harsh self-judgment."],
+
+["Rest on time","Reduce screens before bed and get sufficient sleep."]
+
+];
+
+
+
+let completed=new Set(JSON.parse(localStorage.getItem("brahmaCompleted")||"[]"));
+
+let checks=new Set(JSON.parse(localStorage.getItem("brahmaChecks")||"[]"));
+
+let currentTopic=null;
+
+
+
+function showView(id){
+
+ document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));
+
+ document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
+
+closeReader();
+
+ window.scrollTo({top:document.getElementById("guide").offsetTop-75,behavior:"smooth"});
+
+}
+
+function renderTopics(){
+
+ const grid=document.getElementById("topicGrid");
+
+ grid.innerHTML=topics.map((t,i)=>`<button class="topic-card ${completed.has(i)?"done":""}" onclick="openTopic(${i})"><span class="topic-number">${t.cat} · ${String(i+1).padStart(2,"0")}</span><h3>${t.title}</h3><p>${t.desc}</p></button>`).join("");
+
+}
+
+function filterTopics(){
+
+ const q=document.getElementById("search").value.toLowerCase();
+
+ document.getElementById("topicGrid").innerHTML=topics.map((t,i)=>({t,i})).filter(x=>(x.t.title+" "+x.t.desc+" "+x.t.body).toLowerCase().includes(q)).map(({t,i})=>`<button class="topic-card ${completed.has(i)?"done":""}" onclick="openTopic(${i})"><span class="topic-number">${t.cat} · ${String(i+1).padStart(2,"0")}</span><h3>${t.title}</h3><p>${t.desc}</p></button>`).join("")||'<div class="empty">No matching topics found.</div>';
+
+}
+
+function openTopic(i){
+ readerMode="topic";readerSequence=topics;readerIndex=i;currentTopic=i;renderReader();
+}
+function openPrinciple(i){
+ readerMode="principle";readerSequence=principles;readerIndex=i;currentTopic=null;renderReader();
+}
+function renderReader(){
+ const item=readerSequence[readerIndex],reader=document.getElementById("reader");
+ document.getElementById("readerIndex").textContent=(readerMode==="topic"?item.cat:"THE TEN PRINCIPLES")+" · "+String(readerIndex+1).padStart(2,"0");
+ document.getElementById("readerTitle").textContent=item.title;
+ const body=document.getElementById("readerBody");body.innerHTML=item.body;
+ body.style.animation="none";void body.offsetWidth;body.style.animation="";
+ const complete=document.getElementById("completeBtn");
+ complete.style.display=readerMode==="topic"?"inline-block":"none";
+ complete.textContent=readerMode==="topic"?(completed.has(readerIndex)?"Completed ✓ — undo":"Mark as completed ✓"):"";
+ document.getElementById("readerCounter").textContent=`READING ${String(readerIndex+1).padStart(2,"0")} OF ${String(readerSequence.length).padStart(2,"0")}`;
+ document.getElementById("readerPrev").disabled=readerIndex===0;
+ document.getElementById("readerNext").disabled=readerIndex===readerSequence.length-1;
+ reader.classList.add("open");document.body.style.overflow="hidden";
+}
+function stepReader(direction){
+ const next=readerIndex+direction;if(next<0||next>=readerSequence.length)return;
+ readerIndex=next;currentTopic=readerMode==="topic"?next:null;renderReader();
+ document.querySelector(".reader-panel").scrollTo({top:0,behavior:"smooth"});
+}
+function closeReader(){document.getElementById("reader").classList.remove("open");document.body.style.overflow="";}
+function dismissBanner(){
+ const banner=document.getElementById("quoteBanner");banner.classList.add("dismissed");
+ setTimeout(()=>banner.remove(),500);
+ const head=document.getElementById("hero");
+ head.classList.add("dismissed");
+ setTimeout(()=>head.remove(),500);localStorage.setItem("brahmaBannerDismissed","1");
+}
+
+function toggleComplete(){
+
+ if(currentTopic===null)return;
+
+ completed.has(currentTopic)?completed.delete(currentTopic):completed.add(currentTopic);
+
+ localStorage.setItem("brahmaCompleted",JSON.stringify([...completed]));
+
+ document.getElementById("completeBtn").textContent=completed.has(currentTopic)?"Completed ✓ — undo":"Mark as completed ✓";
+
+renderTopics();updateProgress();
+
+}
+
+function updateProgress(){
+
+ const p=Math.round(completed.size/topics.length*100);
+
+ document.getElementById("sidePercent").textContent=p+"%";
+
+ document.getElementById("sideFill").style.width=p+"%";
+
+}
+
+function renderPrinciples(){
+
+ document.getElementById("principleGrid").innerHTML=principles.map((p,i)=>`<button class="topic-card" onclick="openPrinciple(${i})"><span class="topic-number">PRINCIPLE ${String(i+1).padStart(2,"0")}</span><h3>${p.title}</h3><p>${p.desc}</p></button>`).join("");
+
+}
+
+function renderChecks(){
+ const groups=[{name:"Begin well",range:[0,5]},{name:"Focus & nourishment",range:[5,8]},{name:"Conduct & character",range:[8,12]},{name:"Close the day",range:[12,14]}];
+ document.getElementById("checklistItems").innerHTML=groups.map(g=>{
+  const [from,to]=g.range;
+  const rows=daily.slice(from,to).map((d,n)=>{const i=from+n;return `<label class="check-row"><input type="checkbox" ${checks.has(i)?"checked":""} onchange="toggleCheck(${i},this.checked)"><span><small class="check-time">${String(i+1).padStart(2,"0")} · ${d[0]}</small>${d[1]}</span></label>`}).join("");
+  const done=Array.from({length:to-from},(_,n)=>from+n).filter(i=>checks.has(i)).length;
+  return `<div class="todo-group">${g.name}<span class="todo-group-count">${done}/${to-from} DONE</span></div>${rows}`;
+ }).join("");
+ updateChecks();
+}
+function toggleCheck(i,on){
+ on?checks.add(i):checks.delete(i);localStorage.setItem(checksStorageKey,JSON.stringify([...checks]));updateChecks();
+ const row=document.querySelector(`.check-row input[onchange="toggleCheck(${i},this.checked)"]`)?.closest(".check-row");
+ if(row&&on){row.classList.remove("just-done");void row.offsetWidth;row.classList.add("just-done");}
+ document.querySelectorAll(".todo-group").forEach((heading,gi)=>{
+  const range=[[0,5],[5,8],[8,12],[12,14]][gi],done=Array.from({length:range[1]-range[0]},(_,n)=>range[0]+n).filter(k=>checks.has(k)).length;
+  const count=heading.querySelector(".todo-group-count");if(count)count.textContent=`${done}/${range[1]-range[0]} DONE`;
+ });
+}
+function updateChecks(){
+ const n=checks.size,p=Math.round(n/daily.length*100),remaining=daily.length-n;
+ document.getElementById("doneCount").textContent=n;document.getElementById("totalCount").textContent=daily.length;document.getElementById("dayPercent").textContent=p+"%";
+ document.getElementById("todoProgressLabel").textContent=p+"%";document.getElementById("todoProgressFill").style.width=p+"%";
+ document.getElementById("todoRemaining").textContent=remaining===0?"All practices completed today":`${remaining} ${remaining===1?"practice":"practices"} remaining`;
+ document.getElementById("todoMessage").textContent=p===100?"A thoughtful day, completed.":p>=70?"You're building a steady rhythm.":p>=35?"Good progress. Keep your pace.":"Begin with one meaningful action.";
+}
+function resetChecks(){
+
+ if(!confirm("Reset your daily checklist?"))return;
+
+ checks.clear();localStorage.setItem(checksStorageKey,"[]");renderChecks();
+
+}
+
+document.getElementById("themeToggle").addEventListener("click",()=>{
+
+ const dark=document.documentElement.dataset.theme!=="dark";
+
+ document.documentElement.dataset.theme=dark?"dark":"";
+
+ localStorage.setItem("brahmaTheme",dark?"dark":"light");
+
+ document.getElementById("themeToggle").innerHTML=dark?"☼ &nbsp; Light mode":"◐ &nbsp; Dark mode";
+
+});
+
+if(localStorage.getItem("brahmaTheme")==="dark"){
+
+ document.documentElement.dataset.theme="dark";
+
+ document.getElementById("themeToggle").innerHTML="☼ &nbsp; Light mode";
+
+}
+
+document.getElementById("todayDate").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+if(localStorage.getItem("brahmaBannerDismissed")==="1") {document.getElementById("quoteBanner").remove();document.getElementById("hero").remove();}
+document.body.appendChild(document.getElementById("reader"));
+document.getElementById("reader").addEventListener("click",e=>{if(e.target.id==="reader")closeReader();});
+document.addEventListener("keydown",e=>{
+ if(!document.getElementById("reader").classList.contains("open"))return;
+ if(e.key==="Escape")closeReader();
+ if(e.key==="ArrowLeft")stepReader(-1);
+ if(e.key==="ArrowRight")stepReader(1);
+});
+
+renderTopics();renderPrinciples();renderChecks();updateProgress();
+
+</script>
+
+</body>
+
+</html>
+
+

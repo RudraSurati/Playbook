@@ -153,12 +153,13 @@ body.dark .mobile-bottom-nav{background:rgba(20,17,14,.98)}
   function safeGet(key){try{return localStorage.getItem(key)}catch(e){return null}}
   function safeSet(key,value){try{localStorage.setItem(key,value)}catch(e){}}
   const hero=document.querySelector('.hero');
+  const notice=document.querySelector('.notice');
   if(hero){
     const close=document.createElement('button');
     close.type='button';close.className='hero-close';close.setAttribute('aria-label','Hide banner');close.title='Hide banner';close.textContent='×';
     hero.appendChild(close);
-    if(safeGet('pb_hide_hero')==='1')hero.classList.add('is-dismissed');
-    close.addEventListener('click',function(){hero.classList.add('is-dismissed');safeSet('pb_hide_hero','1')});
+    if(safeGet('pb_hide_hero')==='1')hero.classList.add('is-dismissed');notice.classList.add('is-dismissed');
+    close.addEventListener('click',function(){hero.classList.add('is-dismissed');notice.classList.add('is-dismissed');safeSet('pb_hide_hero','1')});
   }
   const nav=document.createElement('nav');
   nav.className='mobile-bottom-nav';nav.setAttribute('aria-label','Mobile navigation');
