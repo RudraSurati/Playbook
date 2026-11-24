@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#211b17">
+<title>The Playbook — Emotion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --ink:#241d18;
+  --ink2:#3b3028;
+  --paper:#f3eadb;
+  --paper2:#e9ddca;
+  --paper3:#dfcfb8;
+  --cream:#fbf7ef;
+  --rust:#a65035;
+  --rust2:#c06a49;
+  --gold:#c59a5b;
+  --sage:#69775e;
+  --muted:#86786a;
+  --line:rgba(54,40,29,.14);
+  --shadow:0 24px 70px rgba(47,32,20,.12);
+  --shadow-sm:0 4px 18px rgba(47,32,20,.08);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --bottom-nav-h:64px;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(var(--bottom-nav-h) + var(--safe-bottom));
+}
+button,input,select{font:inherit}
+button{cursor:pointer;touch-action:manipulation}
+
+/* ============================================================
+   GRAIN OVERLAY
+   ============================================================ */
+.grain{
+  position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.12;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar{
+  height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5vw;
+  border-bottom:1px solid var(--line);
+  background:rgba(243,234,219,.88);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  position:sticky;top:0;z-index:15;
+}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-mark{
+  width:32px;height:32px;background:var(--ink);color:var(--paper);
+  display:grid;place-items:center;border-radius:50%;
+  font-family:var(--serif);font-size:18px;flex-shrink:0;
+}
+.brand-name{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.top-meta{display:flex;align-items:center;gap:14px}
+.top-meta span{font:10px var(--mono);letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.top-meta span.top-meta-long{display:none}
+.icon-btn{
+  border:1px solid var(--line);background:transparent;
+  width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center;color:var(--ink);
+  transition:.25s;flex-shrink:0;
+}
+.icon-btn:hover{background:var(--ink);color:var(--paper);transform:rotate(-8deg)}
+
+/* ============================================================
+   BANNER (dismissible)
+   ============================================================ */
+.banner{
+  display:flex;align-items:flex-start;gap:12px;
+  background:rgba(105,119,94,.1);
+  border:1px solid rgba(105,119,94,.2);
+  padding:14px 16px;border-radius:10px;
+  margin:16px 5vw 0;
+  color:#53614a;font-size:12px;line-height:1.6;
+  position:relative;
+  animation:bannerIn .4s ease;
+}
+@keyframes bannerIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.banner.hidden{display:none}
+.banner-icon{font:18px var(--serif);flex-shrink:0;line-height:1.4}
+.banner-body{flex:1;min-width:0}
+.banner-body strong{
+  font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  display:block;margin-bottom:3px;
+}
+.banner-close{
+  border:0;background:transparent;color:var(--muted);
+  font-size:20px;line-height:1;padding:2px 4px;flex-shrink:0;
+  border-radius:4px;transition:.2s;
+}
+.banner-close:hover{color:var(--ink);background:rgba(54,40,29,.08)}
+
+/* ============================================================
+   SHELL / LAYOUT — mobile-first
+   ============================================================ */
+.shell{
+  display:block;
+  max-width:1600px;margin:auto;
+  min-height:calc(100vh - 60px);
+}
+
+/* Sidebar is desktop-only */
+.sidebar{display:none}
+
+/* ============================================================
+   HERO (hidden per request — kept in DOM but visually hidden)
+   ============================================================ */
+.hero{display:none}
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+.content{padding:28px 5vw 60px}
+
+/* Toolbar */
+.toolbar{
+  display:flex;align-items:flex-start;flex-direction:column;gap:14px;
+  margin-bottom:22px;
+}
+.section-heading{
+  font:500 24px var(--serif);letter-spacing:-.03em;
+  display:block;width:100%;
+}
+.section-heading small{
+  display:block;font:9px var(--mono);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px;
+}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;width:100%}
+.search-wrap{position:relative;flex:1;min-width:0}
+.search-wrap input{
+  width:100%;height:44px;
+  border:1px solid var(--line);border-radius:30px;
+  background:rgba(251,247,239,.7);
+  padding:0 16px 0 40px;outline:none;
+  color:var(--ink);font-size:13px;transition:.25s;
+}
+.search-wrap input:focus{border-color:var(--rust);box-shadow:0 0 0 3px rgba(166,80,53,.09)}
+.search-wrap svg{position:absolute;left:14px;top:14px;width:15px;opacity:.5;pointer-events:none}
+.filter-btn{
+  height:44px;border:1px solid var(--line);
+  background:transparent;border-radius:24px;
+  padding:0 16px;color:var(--ink);font-size:12px;
+  white-space:nowrap;transition:.2s;
+}
+.filter-btn.active,.filter-btn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* Card grid — single column on mobile */
+.tech-grid{
+  display:grid;grid-template-columns:1fr;gap:10px;
+}
+.tech-card{
+  background:rgba(251,247,239,.64);
+  border:1px solid rgba(54,40,29,.09);
+  border-radius:12px;
+  padding:18px 18px 16px;
+  position:relative;overflow:hidden;
+  transition:transform .35s,border-color .35s,box-shadow .35s;
+  cursor:pointer;
+  animation:cardIn .35s ease backwards;
+}
+.tech-card:nth-child(1){animation-delay:.02s}
+.tech-card:nth-child(2){animation-delay:.05s}
+.tech-card:nth-child(3){animation-delay:.08s}
+.tech-card:nth-child(4){animation-delay:.11s}
+.tech-card:nth-child(5){animation-delay:.14s}
+.tech-card:nth-child(6){animation-delay:.17s}
+@keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.tech-card:active{transform:scale(.985)}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card-num{font:10px var(--mono);color:var(--rust);letter-spacing:.12em}
+.card-tag{
+  font:8px var(--mono);color:var(--muted);
+  border:1px solid var(--line);border-radius:20px;
+  padding:4px 8px;text-transform:uppercase;letter-spacing:.08em;
+}
+.tech-card h4{
+  font:500 20px/1.15 var(--serif);
+  margin:0 32px 8px 0;letter-spacing:-.02em;
+}
+.tech-card p{
+  font-size:12px;line-height:1.6;color:#796d60;margin:0;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+.card-arrow{
+  position:absolute;right:16px;bottom:16px;
+  color:var(--rust);font-size:16px;
+  transition:transform .2s;
+}
+.bookmark-mini{
+  position:absolute;right:14px;top:42px;
+  border:0;background:none;color:#a99b8a;
+  font-size:18px;padding:6px;line-height:1;
+  border-radius:6px;transition:.2s;
+}
+.bookmark-mini.saved{color:var(--rust)}
+.bookmark-mini:active{transform:scale(.9)}
+
+/* Empty state */
+.empty{
+  padding:60px 20px;text-align:center;
+  color:var(--muted);font:13px var(--mono);grid-column:1/-1;
+}
+
+/* Pagination */
+.pagination{
+  display:flex;justify-content:center;align-items:center;
+  gap:14px;margin:28px 0 0;
+}
+.page-btn{
+  border:1px solid var(--line);background:transparent;
+  border-radius:50%;width:40px;height:40px;
+  color:var(--ink);font-size:16px;
+  display:grid;place-items:center;
+  transition:.2s;
+}
+.page-btn:active:not(:disabled){background:var(--ink);color:var(--paper)}
+.page-btn:disabled{opacity:.3;cursor:default}
+.page-count{font:10px var(--mono);color:var(--muted);letter-spacing:.08em}
+
+/* Quote panel */
+.quote-panel{
+  margin:36px 0 0;
+  background:var(--paper2);
+  padding:28px 24px;
+  border-radius:14px;
+  position:relative;overflow:hidden;
+}
+.quote-panel:before{
+  content:"“";position:absolute;right:16px;top:-28px;
+  font:140px var(--serif);color:rgba(166,80,53,.09);
+  pointer-events:none;
+}
+.quote-panel small{
+  font:9px var(--mono);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--rust);
+  position:relative;
+}
+.quote-panel p{
+  font:clamp(22px,5vw,30px)/1.3 var(--serif);
+  max-width:780px;margin:12px 0 0;position:relative;
+}
+
+/* Footer */
+.footer{
+  padding:24px 5vw;
+  border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:8px;
+  color:var(--muted);font:9px var(--mono);
+  letter-spacing:.08em;text-transform:uppercase;
+}
+
+/* ============================================================
+   BOTTOM NAVIGATION — mobile
+   ============================================================ */
+.bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;
+  height:calc(var(--bottom-nav-h) + var(--safe-bottom));
+  padding-bottom:var(--safe-bottom);
+  background:rgba(243,234,219,.96);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  z-index:30;
+  box-shadow:0 -6px 24px rgba(47,32,20,.06);
+}
+.bottom-nav button{
+  border:0;background:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;
+  color:var(--muted);
+  font:9px var(--mono);
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 2px;
+  transition:color .2s;
+  position:relative;
+}
+.bottom-nav button .bn-icon{
+  font-size:18px;line-height:1;
+  font-family:var(--serif);
+  display:block;
+}
+.bottom-nav button.active{color:var(--rust)}
+.bottom-nav button.active .bn-icon{transform:scale(1.08)}
+.bottom-nav button .bn-dot{
+  position:absolute;top:6px;
+  width:4px;height:4px;border-radius:50%;
+  background:var(--rust);opacity:0;transition:.2s;
+}
+.bottom-nav button.active .bn-dot{opacity:1}
+
+/* ============================================================
+   OVERLAY / DETAIL PANEL — full-screen on mobile
+   ============================================================ */
+.overlay{
+  position:fixed;inset:0;
+  background:rgba(25,20,16,.62);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+  z-index:40;display:none;
+  align-items:stretch;justify-content:center;
+}
+.overlay.open{display:flex}
+.detail-panel{
+  width:100%;
+  height:100%;
+  max-height:100vh;
+  max-height:100dvh;
+  background:var(--cream);
+  padding:0;
+  overflow:auto;
+  position:relative;
+  border-radius:0;
+  box-shadow:none;
+  -webkit-overflow-scrolling:touch;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Detail toolbar: close + nav */
+.detail-toolbar{
+  position:sticky;top:0;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;
+  padding:12px 16px;
+  background:var(--cream);
+  border-bottom:1px solid var(--line);
+  z-index:3;
+}
+.detail-toolbar .icon-btn{
+  width:38px;height:38px;font-size:18px;
+}
+.detail-toolbar-left,
+.detail-toolbar-right{
+  display:flex;align-items:center;gap:8px;
+}
+.detail-nav-btn{
+  border:1px solid var(--line);background:transparent;
+  height:38px;min-width:38px;padding:0 12px;
+  border-radius:20px;
+  color:var(--ink);font-size:14px;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:.2s;
+}
+.detail-nav-btn:active:not(:disabled){background:var(--ink);color:var(--paper)}
+.detail-nav-btn:disabled{opacity:.3;cursor:default}
+.detail-nav-btn .nav-label{
+  font:9px var(--mono);letter-spacing:.1em;text-transform:uppercase;
+}
+.detail-counter{
+  font:10px var(--mono);color:var(--muted);
+  letter-spacing:.08em;
+  padding:0 4px;
+}
+
+.detail-scroll{
+  flex:1;
+  padding:20px 20px calc(28px + var(--safe-bottom));
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+.detail-eyebrow{
+  font:9px var(--mono);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--rust);
+  margin:0 0 0;
+}
+.detail-panel h2{
+  font:500 clamp(28px,7vw,42px)/1.05 var(--serif);
+  letter-spacing:-.03em;margin:12px 0 20px;
+  max-width:530px;
+}
+.detail-field{border-top:1px solid var(--line);padding:16px 0}
+.detail-field label{
+  font:9px var(--mono);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--rust);
+  display:block;margin-bottom:7px;
+}
+.detail-field p{font:13px/1.7 var(--sans);color:#51463b;margin:0}
+.detail-field.script{
+  background:#efe4d3;
+  margin:0 -6px;padding:16px 14px;
+  border:0;border-radius:8px;
+}
+.detail-bottom{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-top:20px;gap:12px;
+}
+.detail-bottom button{
+  border:1px solid var(--line);background:transparent;
+  border-radius:30px;padding:12px 18px;
+  font-size:12px;color:var(--ink);
+  transition:.2s;flex-shrink:0;
+}
+.detail-bottom button:active{background:var(--ink);color:var(--paper)}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast{
+  position:fixed;
+  bottom:calc(var(--bottom-nav-h) + var(--safe-bottom) + 16px);
+  left:50%;transform:translate(-50%,20px);
+  background:var(--ink);color:var(--paper);
+  padding:12px 18px;border-radius:30px;
+  font:10px var(--mono);letter-spacing:.08em;
+  opacity:0;pointer-events:none;z-index:60;
+  transition:.3s;white-space:nowrap;
+  max-width:90vw;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+body.dark{
+  --paper:#201b17;--paper2:#302720;--paper3:#42362b;
+  --cream:#29221c;--ink:#eee2d0;--ink2:#d8c9b5;
+  --muted:#ad9c88;--line:rgba(237,222,202,.14);
+  --shadow:0 24px 70px rgba(0,0,0,.28);
+}
+body.dark .topbar{background:rgba(32,27,23,.9)}
+body.dark .banner{color:#bac6aa;background:rgba(105,119,94,.15);border-color:rgba(105,119,94,.25)}
+body.dark .banner-close{color:#bac6aa}
+body.dark .banner-close:hover{background:rgba(237,222,202,.08);color:var(--ink)}
+body.dark .tech-card{background:rgba(57,46,37,.72);border-color:var(--line)}
+body.dark .tech-card p,body.dark .detail-field p{color:#c8b8a5}
+body.dark .search-wrap input{background:#302720;color:var(--ink)}
+body.dark .bottom-nav{background:rgba(32,27,23,.96)}
+body.dark .detail-field.script{background:#382e25}
+body.dark .quote-panel{background:var(--paper2)}
+body.dark .detail-toolbar{background:var(--cream);border-bottom-color:var(--line)}
+
+/* ============================================================
+   RESPONSIVE — TABLET (≥ 640px)
+   ============================================================ */
+@media (min-width:640px){
+  .topbar{height:66px;padding:0 4.5vw}
+  .brand-mark{width:34px;height:34px;font-size:20px}
+  .brand-name{font-size:12px}
+  .top-meta span.top-meta-long{display:inline}
+  .banner{margin:18px 4.5vw 0;padding:16px 18px;font-size:12px}
+
+  .content{padding:36px 5vw 80px}
+  .toolbar{flex-direction:row;align-items:center;justify-content:space-between;gap:16px}
+  .section-heading{font-size:28px;width:auto}
+  .tools{width:auto;flex:1;justify-content:flex-end}
+  .search-wrap{flex:0 0 auto;width:min(280px,40vw)}
+
+  .tech-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .tech-card{padding:20px 20px 18px}
+  .tech-card h4{font-size:21px}
+  .tech-card p{font-size:12px}
+  .tech-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(166,80,53,.3);
+    box-shadow:0 14px 34px rgba(47,32,20,.08);
+  }
+  .tech-card:hover .card-arrow{transform:translate(3px,-3px)}
+
+  .quote-panel{padding:36px 32px;margin-top:48px}
+  .footer{
+    flex-direction:row;justify-content:space-between;
+    padding:28px 5vw;font-size:9px;
+  }
+
+  .bottom-nav{
+    max-width:520px;
+    margin:0 auto;
+    left:50%;transform:translateX(-50%);
+    border-radius:18px 18px 0 0;
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+  }
+
+  /* Detail panel becomes a right-side drawer */
+  .overlay{align-items:stretch;justify-content:flex-end}
+  .detail-panel{
+    width:min(680px,100%);
+    height:100%;
+    max-height:none;
+    border-radius:0;
+    box-shadow:-30px 0 80px rgba(0,0,0,.18);
+  }
+  .detail-toolbar{padding:16px 24px}
+  .detail-scroll{padding:24px 28px 40px}
+  .detail-eyebrow{margin-top:6px}
+  .detail-panel h2{font-size:clamp(36px,5vw,58px);margin:18px 0 30px}
+  .detail-field{padding:20px 0}
+  .detail-field p{font-size:14px;line-height:1.8}
+  .detail-field.script{margin:0 -12px;padding:20px 18px}
+  .detail-bottom{margin-top:28px}
+  .detail-bottom button{padding:11px 16px;font-size:11px}
+
+  .toast{bottom:24px}
+}
+
+/* ============================================================
+   RESPONSIVE — DESKTOP (≥ 900px)
+   ============================================================ */
+@media (min-width:900px){
+  body{padding-bottom:0}
+
+  .topbar{height:72px}
+  .brand-name{font-size:12px}
+
+  .shell{
+    display:grid;
+    grid-template-columns:260px minmax(0,1fr);
+    min-height:calc(100vh - 72px);
+  }
+
+  /* Sidebar appears */
+  .sidebar{
+    display:block;
+    padding:34px 24px 40px 4.5vw;
+    border-right:1px solid var(--line);
+    position:sticky;top:72px;
+    height:calc(100vh - 72px);
+    overflow:auto;
+  }
+  .side-label{
+    font:10px var(--mono);letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);
+    margin:0 0 16px;
+  }
+  .nav-group{margin-bottom:32px}
+  .nav-link{
+    width:100%;display:flex;align-items:center;justify-content:space-between;
+    border:0;background:none;padding:11px 10px;
+    text-align:left;color:#76695d;border-radius:8px;
+    font-size:13px;transition:.2s;
+  }
+  .nav-link:hover,.nav-link.active{background:rgba(166,80,53,.09);color:var(--rust)}
+  .nav-link b{font:10px var(--mono);opacity:.55}
+  .part-dot{
+    display:inline-block;width:7px;height:7px;border-radius:50%;
+    margin-right:10px;background:var(--rust);
+  }
+  .part-two{background:var(--gold)}
+  .part-three{background:var(--sage)}
+  .side-progress{
+    padding:18px 14px;background:var(--paper2);
+    border-radius:10px;margin-top:36px;
+  }
+  .progress-head{
+    display:flex;justify-content:space-between;
+    font:10px var(--mono);text-transform:uppercase;letter-spacing:.1em;
+  }
+  .progress-track{
+    height:3px;background:rgba(36,29,24,.13);
+    margin-top:12px;border-radius:5px;overflow:hidden;
+  }
+  .progress-fill{height:100%;width:0;background:var(--rust);transition:width .4s}
+  .side-foot{
+    margin-top:30px;color:var(--muted);
+    font:10px/1.7 var(--mono);
+  }
+
+  /* Hide mobile bottom nav */
+  .bottom-nav{display:none}
+
+  .banner{margin:20px 7vw 0}
+
+  .content{padding:48px 7vw 100px}
+  .toolbar{margin-bottom:30px}
+  .section-heading{font-size:30px}
+  .search-wrap{width:min(290px,30vw)}
+
+  .tech-card{min-height:178px;padding:20px 21px 18px}
+  .tech-card h4{font-size:21px;margin:0 30px 10px 0}
+  .tech-card p{font-size:11px;-webkit-line-clamp:3}
+  .card-arrow{right:20px;bottom:19px}
+  .bookmark-mini{right:18px;top:48px}
+
+  .quote-panel{margin-top:70px;padding:42px 5vw}
+  .quote-panel:before{right:30px;top:-35px;font-size:190px}
+  .quote-panel small{font-size:10px}
+  .quote-panel p{font-size:clamp(24px,3vw,38px)}
+
+  .footer{padding:30px 7vw}
+
+  /* Desktop overlay drawer */
+  .overlay{align-items:stretch;justify-content:flex-end}
+  .detail-panel{
+    width:min(680px,100%);
+    height:100%;
+    border-radius:0;
+    box-shadow:-30px 0 80px rgba(0,0,0,.18);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — LARGE DESKTOP (≥ 1200px)
+   ============================================================ */
+@media (min-width:1200px){
+  .tech-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{
+    scroll-behavior:auto!important;
+    transition:none!important;
+    animation:none!important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a class="brand" href="./index.html">
+    <span class="brand-mark">P.</span>
+    <span class="brand-name">The Playbook</span>
+  </a>
+  <div class="top-meta">
+    <span class="top-meta-long">Emotion · 4 stages</span>
+    <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">◐</button>
+  </div>
+</header>
+
+<!-- DISMISSIBLE BANNER -->
+<div class="banner" id="appBanner" role="status">
+  <span class="banner-icon">✦</span>
+  <div class="banner-body">
+    <strong>A field manual, not a script</strong>
+    Use the stages below to practise finding, gating, and releasing each emotion on purpose. This is a living practice — not a performance trick.
+  </div>
+  <button class="banner-close" id="bannerClose" aria-label="Dismiss banner forever">×</button>
+</div>
+
+<!-- SHELL -->
+<div class="shell">
+
+  <!-- SIDEBAR (desktop only) -->
+  <aside class="sidebar">
+    <div class="nav-group">
+      <p class="side-label">The stages</p>
+      <button class="nav-link active" data-stage="0">Stage 0 <b>Find</b></button>
+      <button class="nav-link" data-stage="1">Stage 1 <b>Gate</b></button>
+      <button class="nav-link" data-stage="2">Stage 2 <b>Release</b></button>
+      <button class="nav-link" data-stage="3">Stage 3 <b>Library</b></button>
+    </div>
+    <div class="nav-group">
+      <p class="side-label">Your library</p>
+      <button class="nav-link" id="savedOnly">Saved entries <b id="savedCount">0</b></button>
+      <button class="nav-link" id="resetFilters">Reset filters <b>↺</b></button>
+    </div>
+    <div class="side-progress">
+      <div class="progress-head">
+        <span>Reading progress</span>
+        <span id="progressText">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="side-foot">A considered reading<br>of influence & human behaviour.<br><br>EMOTION EDITION</div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <!-- CONTENT -->
+    <div class="content">
+      <div class="toolbar">
+        <div class="section-heading">
+          <small>Explore the stages</small>
+          <span id="resultsTitle">Stage 0 · Finding the doors</span>
+        </div>
+        <div class="tools">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/>
+            </svg>
+            <input id="searchInput" type="search" placeholder="Search emotion, principle, keyword…" autocomplete="off">
+          </div>
+          <button class="filter-btn" id="clearSearch">Clear</button>
+        </div>
+      </div>
+
+      <div class="tech-grid" id="techGrid"></div>
+
+      <div class="pagination" id="pagination">
+        <button class="page-btn" id="prevPage">‹</button>
+        <span class="page-count" id="pageCount">01 / 01</span>
+        <button class="page-btn" id="nextPage">›</button>
+      </div>
+
+      <div class="quote-panel">
+        <small>The through-line</small>
+        <p>“Wait” is not “no.”</p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>The Playbook · Emotion edition</span>
+      <span>4 stages / 8 emotions / One through-line</span>
+      <span>Single-file experience</span>
+    </footer>
+  </main>
+</div>
+
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav" id="bottomNav" role="tablist" aria-label="Stage navigation">
+  <button data-stage="0" class="active" role="tab" aria-selected="true">
+    <span class="bn-dot"></span>
+    <span class="bn-icon">01</span>
+    <span>Find</span>
+  </button>
+  <button data-stage="1" role="tab" aria-selected="false">
+    <span class="bn-dot"></span>
+    <span class="bn-icon">02</span>
+    <span>Gate</span>
+  </button>
+  <button data-stage="2" role="tab" aria-selected="false">
+    <span class="bn-dot"></span>
+    <span class="bn-icon">03</span>
+    <span>Release</span>
+  </button>
+  <button data-stage="3" role="tab" aria-selected="false">
+    <span class="bn-dot"></span>
+    <span class="bn-icon">04</span>
+    <span>Library</span>
+  </button>
+</nav>
+
+<!-- DETAIL OVERLAY -->
+<div class="overlay" id="detailOverlay">
+  <article class="detail-panel" id="detailPanel" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="detail-toolbar">
+      <div class="detail-toolbar-left">
+        <button class="icon-btn" id="closeDetail" aria-label="Close">×</button>
+      </div>
+      <div class="detail-toolbar-right">
+        <button class="detail-nav-btn" id="prevDetail" aria-label="Previous entry">
+          <span aria-hidden="true">‹</span>
+          <span class="nav-label">Prev</span>
+        </button>
+        <span class="detail-counter" id="detailCounter">1 / 8</span>
+        <button class="detail-nav-btn" id="nextDetail" aria-label="Next entry">
+          <span class="nav-label">Next</span>
+          <span aria-hidden="true">›</span>
+        </button>
+      </div>
+    </div>
+    <div class="detail-scroll" id="detailScroll">
+      <div id="detailContent"></div>
+    </div>
+  </article>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const DATA = {
+  stages: [
+    {
+      id: 0,
+      title: "Stage 0 — Finding the doors",
+      short: "Find",
+      subtitle: "Locating each small muscle group by feel so you can move it alone.",
+      emotions: [
+        { number: "0.1", title: "SMILE", principle: "Two separate muscles. The corner-puller (zygomaticus) at the mouth corner; the eye-crinkler (orbicularis oculi) just under the lower lash line.", example: "Find them separately. Pull one mouth corner up alone, no eye movement. Then crinkle the eyes alone, no mouth. Then both.", script: "Play with the two halves until they can move independently.", failure_mode: "Moving both together from the start hides which muscle is doing the work." },
+        { number: "0.2", title: "LAUGH", principle: "Not the throat — the belly. Find a short sharp \"hah\" pushed from the diaphragm, one pulse.", example: "Count the pulses. Two in a row, then three.", script: "One pulse. Then two. Then three.", failure_mode: "Pushing from the throat makes it sound like a cough, not a laugh." },
+        { number: "0.3", title: "CRY", principle: "Find the proxy first: yawn and hold it, and notice the burn under the inner eye. That burn is the thing you'll learn to summon.", example: "Also find the inner brow raise — the \"sad\" pull — because it's the shape that makes tears read as real.", script: "Yawn, hold, notice the burn. Then add the inner brow raise.", failure_mode: "Skipping the proxy and going straight for tears makes the face look pained, not sad." },
+        { number: "0.4", title: "ANGER", principle: "Jaw clench (masseter, back of the jaw near the ear) and brow pull down-and-in (corrugator, between the brows).", example: "Find them separately, then together.", script: "Clench the jaw alone. Release. Pull the brows alone. Release. Then both.", failure_mode: "Clenching everything at once makes it look like a grimace, not anger." },
+        { number: "0.5", title: "SURPRISE", principle: "Brow lift (frontalis, forehead) and jaw drop without clench.", example: "Most people can't drop the jaw without clenching — that's why their surprise looks like anger.", script: "Lift the brows. Then drop the jaw while keeping it loose.", failure_mode: "Jaw drop with clench reads as anger, not surprise." },
+        { number: "0.6", title: "FEAR", principle: "Upper eyelid raised so more white shows, chin tucked slightly.", example: "Find the eyelid alone first.", script: "Raise the upper lid only. Then add the chin tuck.", failure_mode: "Tucking the chin without the eyelid raise reads as shyness, not fear." },
+        { number: "0.7", title: "DISGUST", principle: "Nose wrinkle (levator labii, along the nose bridge) and upper lip raise.", example: "Separate them, then combine.", script: "Wrinkle the nose alone. Then raise the lip alone. Then both.", failure_mode: "Combining them from the start makes it hard to isolate either." },
+        { number: "0.8", title: "SADNESS", principle: "Mouth corners pulled down (depressor anguli oris) and inner brow raised.", example: "Note how different that is from crying — sadness is the shape, crying is the water.", script: "Pull the mouth corners down. Then raise the inner brows. Keep the eyes dry.", failure_mode: "Adding tears turns sadness into crying — the shape is the point." }
+      ]
+    },
+    {
+      id: 1,
+      title: "Stage 1 — The gate",
+      short: "Gate",
+      subtitle: "When the impulse fires, hold it one to two seconds, then let it go.",
+      emotions: [
+        { number: "1.1", title: "SMILE", principle: "Easy to catch. Hold two full seconds, then release at whatever size the moment deserves.", example: "This is the drill you'll do most.", script: "Name it: \"smile.\" Hold two seconds. Release at the right size.", failure_mode: "Releasing too early makes the gate feel like a twitch." },
+        { number: "1.2", title: "LAUGH", principle: "Catch the first pulse and hold it. The first syllable may escape — let it. Hold the second and third, then release.", example: "You're learning to control the run, not the first beat.", script: "Name it: \"laugh.\" Let the first pulse go. Hold the second and third.", failure_mode: "Trying to catch the first pulse makes the laugh die in the throat." },
+        { number: "1.3", title: "CRY", principle: "Catch at the point the eyes sting. Hold. If you release, release in a measured way — one breath out, let the face do the shape.", example: "If you hold too long the tears dry and the moment closes, so this one has a short window.", script: "Name it: \"cry.\" Hold at the sting. Release with one breath out.", failure_mode: "Holding too long closes the moment and the face goes flat." },
+        { number: "1.4", title: "ANGER", principle: "Catch the jaw. Clench arrives before you notice being angry. Hold the clench and don't speak for two seconds.", example: "Most anger damage happens in those two seconds.", script: "Name it: \"anger.\" Hold the jaw. Don't speak for two seconds.", failure_mode: "Speaking during the hold undoes the gate entirely." },
+        { number: "1.5", title: "SURPRISE", principle: "You cannot catch the first flinch. Catch the recovery — the moment after the startle, when the face would normally stay wide.", example: "Hold it there deliberately, then close it down.", script: "Name it: \"surprise.\" Let the flinch happen. Hold the recovery.", failure_mode: "Trying to catch the flinch makes you look frozen, not surprised." },
+        { number: "1.6", title: "FEAR", principle: "Catch the inhale. Fear lives in fast breathing. Hold the breath two seconds, then release slow.", example: "The face follows the breath.", script: "Name it: \"fear.\" Hold the inhale. Release slow.", failure_mode: "Holding the breath too long turns fear into panic." },
+        { number: "1.7", title: "DISGUST", principle: "Easy to catch. Hold, then release in a graded way: a small wrinkle for mild, full for strong.", example: "It's the fastest to arrive after startle.", script: "Name it: \"disgust.\" Hold. Release at the right grade.", failure_mode: "Releasing at full strength for a mild moment reads as overreaction." },
+        { number: "1.8", title: "SADNESS", principle: "Slowest to arrive, so the gate is almost too easy. The skill here is the opposite: learn to let it through on purpose rather than letting it sit unfelt.", example: "The gate is not the hard part. The release is.", script: "Name it: \"sadness.\" Let it through on purpose.", failure_mode: "Letting it sit unfelt makes the face default to flat." }
+      ]
+    },
+    {
+      id: 2,
+      title: "Stage 2 — Release on command",
+      short: "Release",
+      subtitle: "Producing each expression cold, with nothing to react to, at graded sizes.",
+      emotions: [
+        { number: "2.1", title: "SMILE", principle: "Five sizes from a 1 (mouth corner only, barely) to a 5 (full, eyes crinkled). Hold each four seconds.", example: "Then do it while talking about something neutral.", script: "1, 3, 5, back to 2. Four seconds each. Then while talking.", failure_mode: "Sizes that aren't distinguishable to someone watching." },
+        { number: "2.2", title: "LAUGH", principle: "One pulse, then two, then four, then a full run.", example: "Then do it while reading a label off a jar.", script: "1 pulse, 2, 4, full run. Then while reading a jar label.", failure_mode: "Skipping the graded steps and going straight to a full run." },
+        { number: "2.3", title: "CRY", principle: "Eyes-sting only → sting plus inner brow → plus a breath catch → plus two tears.", example: "Build in that order. Don't skip to tears.", script: "Sting only. Add inner brow. Add breath catch. Add two tears.", failure_mode: "Skipping to tears makes the face look squeezed, not sad." },
+        { number: "2.4", title: "ANGER", principle: "1 is jaw only. 3 adds brow. 5 adds the exhale through the nose and a held stare.", example: "Count three seconds at each.", script: "1: jaw. 3: jaw + brow. 5: jaw + brow + exhale + stare. Three seconds each.", failure_mode: "Going to 5 without building through 3 makes it look sudden." },
+        { number: "2.5", title: "SURPRISE", principle: "Brow alone → brow plus jaw → plus a half step back.", example: "Note that 5 without the step back always reads as fake.", script: "Brow. Brow + jaw. Brow + jaw + half step back.", failure_mode: "Skipping the step back at 5 — it always reads as fake." },
+        { number: "2.6", title: "FEAR", principle: "Eyelid alone → plus chin tuck → plus a slow look to the side.", example: "The look is what sells it.", script: "Eyelid. Add chin tuck. Add slow look to the side.", failure_mode: "The look without the eyelid raise reads as suspicion, not fear." },
+        { number: "2.7", title: "DISGUST", principle: "Wrinkle alone → plus lip → plus a small head turn away.", example: "The head turn is the final grade.", script: "Wrinkle. Add lip. Add small head turn away.", failure_mode: "Head turn without the wrinkle reads as dismissal, not disgust." },
+        { number: "2.8", title: "SADNESS", principle: "Corner pull alone → plus inner brow → plus a slow blink.", example: "The slow blink is the final grade.", script: "Corner pull. Add inner brow. Add slow blink.", failure_mode: "Slow blink without the brow raise reads as tired, not sad." }
+      ]
+    },
+    {
+      id: 3,
+      title: "Stage 3 — The library",
+      short: "Library",
+      subtitle: "Assigning expressions to situations on purpose, at matched amplitude, in the wild.",
+      emotions: [
+        { number: "3.1", title: "SMILE", principle: "Decide your default greeting size (probably 3) and use it deliberately for a week.", example: "Then notice when someone gets a 5 and you didn't intend it — that's your reflex leaking through, which is fine and should stay.", script: "Default to 3 for a week. Notice the 5s.", failure_mode: "Trying to eliminate the reflex leak — that's the life in the face." },
+        { number: "3.2", title: "LAUGH", principle: "In conversation, choose the pulse count rather than letting it run.", example: "Two pulses for a polite beat, a full run only when it's actually funny.", script: "Choose 2 pulses for polite. Full run for funny.", failure_mode: "Full run for everything makes the real laugh worthless." },
+        { number: "3.3", title: "CRY", principle: "Use it in the situation that would normally take you. Try holding one second before releasing.", example: "Then try releasing on the first sting and see how different it feels.", script: "Hold one second. Release. Then try releasing on the first sting.", failure_mode: "Never releasing makes the face look held, not moved." },
+        { number: "3.4", title: "ANGER", principle: "Use the two-second jaw hold in every disagreement for a week.", example: "You'll notice you say less and mean more.", script: "Jaw hold. Two seconds. Then speak.", failure_mode: "Using the hold to suppress rather than to choose your words." },
+        { number: "3.5", title: "SURPRISE", principle: "Let the flinch happen, then hold the recovery a beat longer than natural.", example: "That's the \"unbothered\" look and it's entirely built from the recovery, not the startle.", script: "Flinch. Hold recovery one beat longer. Close.", failure_mode: "Trying to suppress the flinch — the recovery is the skill." },
+        { number: "3.6", title: "FEAR", principle: "Use the breath hold before answering anything that scares you — a question, a price, a name.", example: "The breath is the gate, and the face follows.", script: "Inhale. Hold two seconds. Answer slow.", failure_mode: "Holding too long makes the pause visible as fear, not calm." },
+        { number: "3.7", title: "DISGUST", principle: "Downgrade it in public. Most people run disgust at 5 for a 2 situation.", example: "The downgrade is the whole skill in public.", script: "Match the grade to the situation. 2 for a 2.", failure_mode: "Running at 5 for a 2 makes you look brittle." },
+        { number: "3.8", title: "SADNESS", principle: "Use it at the size the moment deserves rather than letting it default to flat.", example: "The default is flat, and flat is the failure mode.", script: "Match the size to the moment. Don't default to flat.", failure_mode: "Letting it sit unfelt makes the face look absent." }
+      ]
+    }
+  ]
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let currentStage = 0;
+let searchQuery = "";
+let savedOnly = false;
+let savedItems = JSON.parse(localStorage.getItem('doorman_saved') || '[]');
+let currentPage = 1;
+const PER_PAGE = 6;
+
+/* Detail panel context — the full filtered list the panel is navigating */
+let detailList = [];        // array of {stageId, number}
+let detailIndex = 0;        // index within detailList
+
+/* ============================================================
+   DOM
+   ============================================================ */
+const grid = document.getElementById('techGrid');
+const resultsTitle = document.getElementById('resultsTitle');
+const searchInput = document.getElementById('searchInput');
+const clearSearch = document.getElementById('clearSearch');
+const savedOnlyBtn = document.getElementById('savedOnly');
+const resetFilters = document.getElementById('resetFilters');
+const savedCount = document.getElementById('savedCount');
+const progressText = document.getElementById('progressText');
+const progressFill = document.getElementById('progressFill');
+const overlay = document.getElementById('detailOverlay');
+const detailContent = document.getElementById('detailContent');
+const detailScroll = document.getElementById('detailScroll');
+const detailCounter = document.getElementById('detailCounter');
+const prevDetailBtn = document.getElementById('prevDetail');
+const nextDetailBtn = document.getElementById('nextDetail');
+const closeDetail = document.getElementById('closeDetail');
+const toast = document.getElementById('toast');
+const pageCount = document.getElementById('pageCount');
+const prevPage = document.getElementById('prevPage');
+const nextPage = document.getElementById('nextPage');
+const themeToggle = document.getElementById('themeToggle');
+const bottomNav = document.getElementById('bottomNav');
+const banner = document.getElementById('appBanner');
+const bannerClose = document.getElementById('bannerClose');
+
+/* ============================================================
+   BANNER (dismiss forever)
+   ============================================================ */
+if (localStorage.getItem('doorman_banner_dismissed') === '1') {
+  banner.classList.add('hidden');
+}
+bannerClose.addEventListener('click', () => {
+  banner.classList.add('hidden');
+  localStorage.setItem('doorman_banner_dismissed', '1');
+});
+
+/* ============================================================
+   NAV — sidebar + bottom nav
+   ============================================================ */
+function setStage(stageId) {
+  currentStage = stageId;
+  currentPage = 1;
+
+  document.querySelectorAll('.nav-link[data-stage]').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.stage) === stageId);
+  });
+
+  document.querySelectorAll('.bottom-nav button').forEach(b => {
+    const active = parseInt(b.dataset.stage) === stageId;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+
+  render();
+}
+
+document.querySelectorAll('.nav-link[data-stage]').forEach(btn => {
+  btn.addEventListener('click', () => setStage(parseInt(btn.dataset.stage)));
+});
+
+document.querySelectorAll('.bottom-nav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    setStage(parseInt(btn.dataset.stage));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+searchInput.addEventListener('input', (e) => {
+  searchQuery = e.target.value.toLowerCase();
+  currentPage = 1;
+  render();
+});
+
+clearSearch.addEventListener('click', () => {
+  searchInput.value = '';
+  searchQuery = '';
+  currentPage = 1;
+  render();
+});
+
+/* ============================================================
+   SAVED ONLY
+   ============================================================ */
+savedOnlyBtn.addEventListener('click', () => {
+  savedOnly = !savedOnly;
+  savedOnlyBtn.classList.toggle('active', savedOnly);
+  currentPage = 1;
+  render();
+});
+
+resetFilters.addEventListener('click', () => {
+  searchInput.value = '';
+  searchQuery = '';
+  savedOnly = false;
+  savedOnlyBtn.classList.remove('active');
+  setStage(0);
+});
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function getSavedKey(stageId, number) {
+  return `${stageId}-${number}`;
+}
+function isSaved(stageId, number) {
+  return savedItems.includes(getSavedKey(stageId, number));
+}
+function toggleSave(stageId, number) {
+  const key = getSavedKey(stageId, number);
+  if (savedItems.includes(key)) {
+    savedItems = savedItems.filter(k => k !== key);
+    showToast('Removed from library');
+  } else {
+    savedItems.push(key);
+    showToast('Saved to library');
+  }
+  localStorage.setItem('doorman_saved', JSON.stringify(savedItems));
+  savedCount.textContent = savedItems.length;
+  render();
+  // if panel open, refresh save button label
+  if (overlay.classList.contains('open')) {
+    updateDetailSaveButton();
+  }
+}
+function updateProgress() {
+  const total = DATA.stages.reduce((sum, s) => sum + s.emotions.length, 0);
+  const pct = Math.round((savedItems.length / total) * 100);
+  progressText.textContent = pct + '%';
+  progressFill.style.width = pct + '%';
+}
+
+/* ============================================================
+   RENDER GRID
+   ============================================================ */
+function render() {
+  const stage = DATA.stages[currentStage];
+  let emotions = stage.emotions;
+
+  if (searchQuery) {
+    emotions = emotions.filter(e =>
+      e.title.toLowerCase().includes(searchQuery) ||
+      e.principle.toLowerCase().includes(searchQuery) ||
+      e.example.toLowerCase().includes(searchQuery) ||
+      e.number.includes(searchQuery)
+    );
+  }
+
+  if (savedOnly) {
+    emotions = emotions.filter(e => isSaved(stage.id, e.number));
+  }
+
+  resultsTitle.textContent = stage.title;
+
+  const totalPages = Math.max(1, Math.ceil(emotions.length / PER_PAGE));
+  if (currentPage > totalPages) currentPage = totalPages;
+  const start = (currentPage - 1) * PER_PAGE;
+  const paginated = emotions.slice(start, start + PER_PAGE);
+
+  pageCount.textContent = String(currentPage).padStart(2, '0') + ' / ' + String(totalPages).padStart(2, '0');
+  prevPage.disabled = currentPage <= 1;
+  nextPage.disabled = currentPage >= totalPages;
+
+  if (paginated.length === 0) {
+    grid.innerHTML = '<div class="empty">No entries match your filters.</div>';
+  } else {
+    grid.innerHTML = paginated.map(e => `
+      <div class="tech-card" data-stage="${stage.id}" data-number="${e.number}">
+        <div class="card-top">
+          <span class="card-num">${e.number}</span>
+          <span class="card-tag">${stage.short}</span>
+        </div>
+        <h4>${e.title}</h4>
+        <p>${e.principle}</p>
+        <button class="bookmark-mini ${isSaved(stage.id, e.number) ? 'saved' : ''}" data-stage="${stage.id}" data-number="${e.number}" aria-label="Save">${isSaved(stage.id, e.number) ? '★' : '☆'}</button>
+        <span class="card-arrow">↗</span>
+      </div>
+    `).join('');
+
+    document.querySelectorAll('.tech-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.bookmark-mini')) return;
+        const stageId = parseInt(card.dataset.stage);
+        const number = card.dataset.number;
+        const idx = emotions.findIndex(x => x.number === number);
+        openDetail(stageId, number, emotions, idx);
+      });
+    });
+
+    document.querySelectorAll('.bookmark-mini').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSave(parseInt(btn.dataset.stage), btn.dataset.number);
+      });
+    });
+  }
+
+  updateProgress();
+  savedCount.textContent = savedItems.length;
+}
+
+/* ============================================================
+   DETAIL PANEL — full screen, with next/prev
+   ============================================================ */
+function openDetail(stageId, number, list, idx) {
+  // list is the filtered emotion array the card came from
+  detailList = list.map(e => ({ stageId, number: e.number, emotion: e }));
+  detailIndex = idx >= 0 ? idx : 0;
+
+  renderDetail();
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  if (window.anime) {
+    const isMobile = window.innerWidth < 900;
+    anime({
+      targets: '.detail-panel',
+      translateY: isMobile ? ['100%', '0%'] : ['0%', '0%'],
+      translateX: isMobile ? '0%' : ['100%', '0%'],
+      duration: 400,
+      easing: 'easeOutCubic'
+    });
+  }
+}
+
+function renderDetail() {
+  const item = detailList[detailIndex];
+  if (!item) return;
+  const stage = DATA.stages[item.stageId];
+  const emotion = item.emotion;
+
+  detailContent.innerHTML = `
+    <div class="detail-eyebrow">${stage.title}</div>
+    <h2 id="detailTitle">${emotion.title}</h2>
+    <div class="detail-field">
+      <label>Principle</label>
+      <p>${emotion.principle}</p>
+    </div>
+    <div class="detail-field">
+      <label>Example</label>
+      <p>${emotion.example}</p>
+    </div>
+    <div class="detail-field script">
+      <label>Script / Drill</label>
+      <p>${emotion.script}</p>
+    </div>
+    <div class="detail-field">
+      <label>Failure mode</label>
+      <p>${emotion.failure_mode}</p>
+    </div>
+    <div class="detail-bottom">
+      <button id="detailSaveBtn">${isSaved(item.stageId, item.number) ? '★ Saved' : '☆ Save'}</button>
+      <span class="card-tag">${stage.short}</span>
+    </div>
+  `;
+
+  detailCounter.textContent = `${detailIndex + 1} / ${detailList.length}`;
+  prevDetailBtn.disabled = detailIndex <= 0;
+  nextDetailBtn.disabled = detailIndex >= detailList.length - 1;
+
+  // scroll detail body back to top on change
+  detailScroll.scrollTop = 0;
+
+  document.getElementById('detailSaveBtn').addEventListener('click', () => {
+    toggleSave(item.stageId, item.number);
+  });
+
+  if (window.anime) {
+    anime({
+      targets: '#detailContent',
+      opacity: [0.4, 1],
+      translateX: [6, 0],
+      duration: 220,
+      easing: 'easeOutQuad'
+    });
+  }
+}
+
+function updateDetailSaveButton() {
+  const item = detailList[detailIndex];
+  if (!item) return;
+  const btn = document.getElementById('detailSaveBtn');
+  if (btn) {
+    btn.textContent = isSaved(item.stageId, item.number) ? '★ Saved' : '☆ Save';
+  }
+}
+
+function closeDetailPanel() {
+  const isMobile = window.innerWidth < 900;
+  if (window.anime) {
+    anime({
+      targets: '.detail-panel',
+      translateY: isMobile ? '100%' : '0%',
+      translateX: isMobile ? '0%' : '100%',
+      duration: 300,
+      easing: 'easeInCubic',
+      complete: () => {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  } else {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+function goDetail(delta) {
+  const next = detailIndex + delta;
+  if (next < 0 || next >= detailList.length) return;
+  detailIndex = next;
+  renderDetail();
+}
+
+prevDetailBtn.addEventListener('click', () => goDetail(-1));
+nextDetailBtn.addEventListener('click', () => goDetail(1));
+closeDetail.addEventListener('click', closeDetailPanel);
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeDetailPanel();
+});
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+let toastTimer;
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+prevPage.addEventListener('click', () => { if (currentPage > 1) { currentPage--; render(); } });
+nextPage.addEventListener('click', () => { currentPage++; render(); });
+
+/* ============================================================
+   THEME
+   ============================================================ */
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('doorman_theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+});
+if (localStorage.getItem('doorman_theme') === 'dark') {
+  document.body.classList.add('dark');
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+savedCount.textContent = savedItems.length;
+render();
+
+/* Keyboard: escape closes panel, arrows navigate */
+document.addEventListener('keydown', (e) => {
+  if (!overlay.classList.contains('open')) return;
+  if (e.key === 'Escape') closeDetailPanel();
+  if (e.key === 'ArrowRight') goDetail(1);
+  if (e.key === 'ArrowLeft') goDetail(-1);
+});
+</script>
+</body>
+</html>
